@@ -4,11 +4,11 @@ var _ = require('underscore');
 
 exports.loadJSON = function (options) {
 
-	var obj = JSON.parse(fs.readFileSync(options.path, 'utf8'))
+	var obj = options.json;
 	var intObj = [];
 	var finalObj = [];
 
-	var filename = path.basename(options.path, '.json')
+	var filename = options.filename;
 	
 
 	var grpORG = _.groupBy(obj, function(el){ return el.ORG_CODE; });
