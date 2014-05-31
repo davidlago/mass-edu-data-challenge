@@ -1,7 +1,6 @@
 // Required libs
-var MongoClient = require('mongodb').MongoClient;
-var     lazy    = require("lazy"),
-        	fs  = require("fs");
+var MongoClient = require('mongodb').MongoClient,
+         loader = require("./loader");
 
 // Connect to the db
 MongoClient.connect("mongodb://localhost:27017/massedu", function(err, db) {
@@ -10,22 +9,10 @@ MongoClient.connect("mongodb://localhost:27017/massedu", function(err, db) {
 	var collection = db.collection('org_code');
 
 
+	loader.loadJSON({
+						folder: "financial",
+						path: "../data/financial/per_pupil_expenditure_report_2005_2012.json",
+						collection: collection
+					});
 
-	new lazy(fs.createReadStream('../data/financial/MyVeryBigFile.csv'))
-	    .lines
-	    .forEach(function(line){
-	    	console.log(line.toString());
-	    }
-	);
-
-
-
-  	// var doc1 = {'hello':'doc1'};
-
-  	// collection.insert(doc1, {w:1}, function(err, result) {
-
-  	// if(err)
-  	// 	console.log(err);
-  	// else
-  	// 	console.log('Done!');
 });
