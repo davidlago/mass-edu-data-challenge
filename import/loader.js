@@ -1,21 +1,41 @@
-var fs  = require("fs");
+var fs  = require("fs")
+var path = require("path")
 
 exports.loadJSON = function (options) {
 
-	var obj = JSON.parse(fs.readFileSync(path, 'utf8'));
+	var obj = JSON.parse(fs.readFileSync(options.path, 'utf8'))
 
-	console.log(JSON.stringify(obj));
+	for (var index in obj) {
+
+		var element = obj[index]
+		var base = {}
+		base.ORG_CODE = element.ORG_CODE
+		base[options.folder] = {}
+		var filename = path.basename(options.path, '.json')
+		base[options.folder][filename] = element
 
 
 
 
-  	// var doc1 = {'hello':'doc1'};
+		var exists = false;
+		options.collection.findOne({ORG_CODE: base.ORG_CODE}, function(err, document) {
+			if(!err) {
+				exists = true;
+			}
+		});
 
-  	// collection.insert(doc1, {w:1}, function(err, result) {
+		if(exists) {  // ORG_CODE/folder/filename already exists, use array
 
-  	// if(err)
-  	// 	console.log(err);
-  	// else
-  	// 	console.log('Done!');
 
-};
+		} else { // Insert new one
+
+			
+
+		}
+
+
+		console.log(base)
+
+	}
+
+}
