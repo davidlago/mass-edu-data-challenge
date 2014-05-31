@@ -2,6 +2,7 @@ var fs = require('fs')
 var walk = require('walk')
 var Converter=require("csvtojson").core.Converter
 var _ = require("underscore")
+var path = require("path")
 
 var loader = require('./loader')
 
@@ -16,7 +17,9 @@ var state = []
 exports.walk_and_load = function() {
 
   console.log("walk_and_load")
-  var walker = walk.walk(__dirname+"\\..\\data", options)
+  var walk_path = path.normalize(__dirname+"/../data")
+  console.log(walk_path)
+  var walker = walk.walk(walk_path, options)
 
   walker.on("file", function (path, fileStats, next) {
     var tail = fileStats.name.substring(fileStats.name.length-5,fileStats.name.length)
