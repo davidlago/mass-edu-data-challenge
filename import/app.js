@@ -8,6 +8,11 @@ MongoClient.connect("mongodb://localhost:27017/massedu", function(err, db) {
 
 	var collection = db.collection('org_code');
 
-	var state = walker.walk_and_load()
+	walker.walk_and_load(function(endState) {
+		console.log('Done!');
+		collection.insert(state, {w: 1}, function(err, records){
+  			console.log("Record added as "+records[0]._id);
+		});
+	})
 
 });

@@ -14,7 +14,7 @@ var options = {
 
 var state = []  
 
-exports.walk_and_load = function() {
+exports.walk_and_load = function(store) {
 
   console.log("walk_and_load")
   var walk_path = path.normalize(__dirname+"/../data")
@@ -56,7 +56,7 @@ exports.walk_and_load = function() {
   })
 
   walker.on("end", function() {
-    return state
+    store(state)
   })
   
   walker.on("errors", function (root, nodeStatsArray, next) {
