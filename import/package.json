@@ -10,6 +10,7 @@
   "license": "MIT",
   "dependencies": {
     "mongodb": "^1.4.5",
-    "path": "^0.4.9"
+    "path": "^0.4.9",
+    "underscore": "^1.6.0"
   }
 }
