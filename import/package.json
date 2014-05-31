@@ -10,6 +10,7 @@
   "license": "MIT",
   "dependencies": {
     "lazy": "^1.0.11",
-    "mongodb": "^1.4.5"
+    "mongodb": "^1.4.5",
+    "walk": "~2.3.3"
   }
 }
