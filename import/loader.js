@@ -8,7 +8,7 @@ exports.loadJSON = function (options) {
 	var intObj = [];
 	var finalObj = [];
 
-	var filename = options.filename;
+	var filename = options.fileroot;
 	
 
 	var grpORG = _.groupBy(obj, function(el){ return el.ORG_CODE; });
