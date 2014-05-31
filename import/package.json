@@ -6,11 +6,13 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "David Lago",
+  "author": "David Lago, Chris Buck",
   "license": "MIT",
   "dependencies": {
+    "lazy": "^1.0.11",
     "mongodb": "^1.4.5",
     "path": "^0.4.9",
-    "underscore": "^1.6.0"
+    "underscore": "^1.6.0",
+    "walk": "~2.3.3"
   }
 }
