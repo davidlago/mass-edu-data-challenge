@@ -8,6 +8,6 @@ MongoClient.connect("mongodb://localhost:27017/massedu", function(err, db) {
 
 	var collection = db.collection('org_code');
 
-	walker.walk_and_load(collection)
+	var state = walker.walk_and_load()
 
 });
