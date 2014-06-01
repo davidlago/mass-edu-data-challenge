@@ -12,12 +12,15 @@ var options = {
 , filters: ["Temp", "_Temp", ".git", "node_modules"]
 };
 
-var state = []  
+var state =  []
 
-exports.walk_and_load = function(store) {
+exports.walk_and_load = function(dirBase,store) {
+
+  // Wipe out state
+  state = [] 
 
   console.log("walk_and_load")
-  var walk_path = path.normalize(__dirname+"/../data")
+  var walk_path = path.normalize(__dirname+"/../data/"+dirBase)
   console.log(walk_path)
   var walker = walk.walk(walk_path, options)
 
@@ -30,11 +33,13 @@ exports.walk_and_load = function(store) {
       var folder = path.split("/")
       console.log(folder[folder.length-1], path+"/"+fileStats.name)    
       var fileroot = fileStats.name.split(".csv")[0]
+
       parse_and_load({
         folder: folder[folder.length-1]
       , fileroot: fileroot
       , filename: path+'/'+fileStats.name
       }, next)
+      
     } else {
       next()
     }

@@ -9,11 +9,12 @@
   "author": "David Lago, Chris Buck",
   "license": "MIT",
   "dependencies": {
+    "async": "^0.9.0",
+    "csvtojson": "~0.3.7",
     "lazy": "^1.0.11",
     "mongodb": "^1.4.5",
     "path": "^0.4.9",
     "underscore": "^1.6.0",
-    "walk": "~2.3.3",
-    "csvtojson": "~0.3.7"
+    "walk": "~2.3.3"
   }
 }
