@@ -5,7 +5,7 @@ var MongoClient = require('mongodb').MongoClient
 
 app.use(bodyParser());
 
-var port = process.env.PORT || 80;
+var port = process.env.PORT || 3000;
 
 var router = express.Router();
 
