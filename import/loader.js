@@ -10,7 +10,7 @@ function get_org_code(el) {
   return org_code
 }
 
-function get_year(el) {
+function get_year(el, fileroot_year) {
   // The different files have many different year fields
   var year = el.FY_CODE || el.REC_YEAR || el.ORG_FY || el.GRADUATING_YEAR || el.YEAR || el.SY || el.FY || fileroot_year
   var int_year = parseInt(year)
@@ -29,21 +29,23 @@ exports.loadJSON = function (options) {
 
 	//var filename = options.fileroot		// Input file name (without extension)
   //console.log(options)
-  //var fileroot = options.filename.split(".csv")[0].split("data")[1]
-  var fileroot = options.fileroot
+  var fileroot = options.name.split(".csv")[0]
   // Grab year
   var fileroot_year = fileroot.replace(/[^0-9]*([12][90][8901][0-9])[^0-9]*/,"$1")
+  console.log(fileroot_year)
   // Edit out years
-  var fileroot_yearless = fileroot.replace(/(^|_)([12][90][8901][0-9](_|$))+/,"")
+  var fileroot_yearless = fileroot.replace(/[12][90][8901][0-9]/g,"")
   // Edit out types of records (it's encoded in ORG_CODE)
   // 00000000 - Whole Mass.
   // nnnn0000 - District
   // nnnnnnnn - School
-  var fileroot = fileroot_yearless.replace(/((_state)|(_district)|(_school))+/,"")
+  fileroot = fileroot_yearless.replace(/((_state)|(_district)|(_school))+/,"")
   // replace spaces with underscores
-  var fileroot = fileroot.replace(/ /g,"_")
+  fileroot = fileroot.replace(/ /g,"_")
   // replace multipule underscores with a single one
-  var fileroot = fileroot.replace(/__/g,"_")
+  fileroot = fileroot.replace(/__/g,"_")
+  fileroot = fileroot.replace(/_$/,"")
+  
   console.log("fileroot:",fileroot)
 
 	// Group input document by ORG_CODE
@@ -58,7 +60,7 @@ exports.loadJSON = function (options) {
 	//	tempObj[options.folder][filename] = item
 	//	intObj.push(tempObj)
 	//}
-	var folder = options.folder.split(/[\/\\]data[\/\\]/)[1]
+	var folder = options.path.split(/[\/\\]data[\/\\]/)[1]
   console.log("folder/realm:", folder)
 	
   // build insert records
@@ -68,7 +70,7 @@ exports.loadJSON = function (options) {
 
 	// Group merged document by org_code and year
 	var grpOrg = _.groupBy(obj, function(el){
-	  return (get_org_code(el)+":"+get_year(el))
+	  return (get_org_code(el)+":"+get_year(el, fileroot_year))
 	})
   
   var intObj = _.map(grpOrg, function(records, org_code_and_year) {
