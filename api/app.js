@@ -32,7 +32,7 @@ router.route('/:org_code').get(function(req, res) {
 			query.year = year
 		}
 
-		collection.find(query, function(err, document) {
+		collection.find(query).toArray(function(err, document) {
 			if(err) // General error
 				res.send(500)
 			else if (!document) // Not found
