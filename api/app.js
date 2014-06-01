@@ -25,7 +25,25 @@ router.route('/:org_code').get(function(req, res) {
 
 		if(realm) {
 			console.log('Querying for realm ' + realm)
-			query[realm] = {$exists: true}
+			//query[realm] = {$exists: true}
+
+			
+
+			var or1 = {}
+			or1[realm] = {$exists: true}
+			var or2 = {}
+			or2.realm = realm
+			query.$or = [or1,or2]
+
+
+			// SAMPLE OR QUERY TERM:
+			// {
+			//   title:"MongoDB",
+			//   $or:[
+			//     {author:"Daniel"},
+			//     {author:"Jessica"}
+			//   ]
+			// }
 		}
 		if(year) {
 			console.log('Querying for year ' + year)
