@@ -31,7 +31,7 @@ exports.walk_and_load = function(dirBase,store) {
     var tail = fileStats.name.substring(fileStats.name.length-4,fileStats.name.length)
     if (tail == ".csv") {
       var folder = path.split("/")
-      console.log(folder[folder.length-1], path+"/"+fileStats.name)    
+      //console.log(folder[folder.length-1], path+"/"+fileStats.name)    
       var fileroot = fileStats.name.split(".csv")[0]
 
       parse_and_load({
@@ -77,17 +77,17 @@ var param_tsv = {
 }
 
 function parse_and_load(options, next) {
-  console.log(options)
+  //console.log(options)
   var test_input = fs.openSync(options.filename, "r")
   var chunk = new Buffer(80)
   var number_read = fs.readSync(test_input,chunk,0,80,0)
   fs.close(test_input)
   var param = { constructResult: true, delimiter: "," }
   if (chunk.toString().indexOf("\t") != -1) {
-    console.log("Tab!")
+    //console.log("Tab!")
     param = param_tsv
   } else {
-    console.log("No tab")
+    //console.log("No tab")
     //console.log(chunk.toString())
   }
   var input = fs.createReadStream(options.filename, { encoding: 'utf8' })
