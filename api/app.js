@@ -19,9 +19,9 @@ router.route('/:org_code').get(function(req, res) {
 		var realm = req.query.realm
 		var year = req.query.year
 		var query = {}
-		query.ORG_CODE = req.params.org_code
+		query.org_code = req.params.org_code
 
-		console.log('=====> New query for ORG_CODE ' + req.params.org_code)
+		console.log('=====> New query for org_code ' + req.params.org_code)
 
 		if(realm) {
 			console.log('Querying for realm ' + realm)
