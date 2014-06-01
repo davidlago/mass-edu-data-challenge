@@ -6,11 +6,12 @@ var MongoClient = require('mongodb').MongoClient
 app.use(bodyParser());
 
 var port = process.env.PORT || 3000;
+var dburl = process.env.DB_URL || "mongodb://localhos:27017/massedu";
 
 var router = express.Router();
 
 router.route('/:org_code').get(function(req, res) {
-	MongoClient.connect("mongodb://massedu.davidlago.us:27017/massedu", function(err, db) {
+	MongoClient.connect(dburl, function(err, db) {
 		if(err) { return console.dir(err); }
 
 		var collection = db.collection('org_code')
