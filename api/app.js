@@ -25,11 +25,11 @@ router.route('/:org_code').get(function(req, res) {
 
 		if(realm) {
 			console.log('Querying for realm ' + realm)
-			//...
+			query[realm] = {$exists: true}
 		}
 		if(year) {
 			console.log('Querying for year ' + year)
-			//...
+			query.year = year
 		}
 
 		collection.findOne(query, function(err, document) {
