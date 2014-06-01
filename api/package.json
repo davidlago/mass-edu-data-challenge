@@ -1,0 +1,14 @@
+{
+  "name": "node-api",
+  "main": "server.js",
+  "author": "David Lago",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "~1.0.1",
+    "express": "~4.0.0",
+    "mongodb": "^1.4.5"
+  },
+  "engines": {
+    "node": "0.10.x"
+  }
+}
