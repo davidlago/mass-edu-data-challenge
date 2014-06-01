@@ -21,10 +21,10 @@ MongoClient.connect("mongodb://localhost:27017/massedu", function(err, db) {
     		var file = files[index];
     		if(fs.lstatSync(baseDir+'/'+file).isDirectory() &&
 	    			file !== 'tools'
-	    			// && file !== 'educators_teachers'
-	    			// && file !== 'financial'
-	    			// && file !== 'mcas'
-	    			// && file !== 'students'
+	    			 && file !== 'educators_teachers'
+	    			 && file !== 'financial'
+	    			 && file !== 'mcas'
+	    			 && file !== 'students'
 	    			) {
     				console.log('PROCESSING FOLDER: ' + file)
 		        	walker.walk_and_load(file,function(endState) {

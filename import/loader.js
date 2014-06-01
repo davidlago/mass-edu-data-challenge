@@ -2,6 +2,25 @@ var fs  = require('fs')
 var path = require('path')
 var _ = require('underscore')
 
+function get_org_code(el) {
+  var dist_code = el.DIST_CODE || "" // 8 digit
+  var school = el.SCHOOL || "" // 8 digit
+  if (school == "") { school = dist_code }
+  var org_code = el.ORG_CODE || el.SCHOOL_CODE || el.DIST_SCHOOL_CODE ||(el.DISTRICT_CODE+"0000") || school
+  return org_code
+}
+
+function get_year(el) {
+  // The different files have many different year fields
+  var year = el.FY_CODE || el.REC_YEAR || el.ORG_FY || el.GRADUATING_YEAR || el.YEAR || el.SY || el.FY || fileroot_year
+  var int_year = parseInt(year)
+  // don't save record if there is no year
+  if ((int_year < 1970) || (int_year > 2015)) {
+    year = "NA"
+  }
+  return year
+}
+
 exports.loadJSON = function (options) {
 
 	var obj = options.json 				// New input file as a JSON
@@ -43,26 +62,33 @@ exports.loadJSON = function (options) {
   console.log("folder/realm:", folder)
 	
   // build insert records
-  var intObj = _.map(obj, function(el) {
-    // 
-    var dist_code = el.DIST_CODE || "" // 8 digit
-    var school = el.SCHOOL || "" // 8 digit
-    if (school == "") { school = dist_code }
-    var org_code = el.ORG_CODE || el.SCHOOL_CODE || el.DIST_SCHOOL_CODE ||(el.DISTRICT_CODE+"0000") || school
+  console.log("obj length", obj.length)
+  //console.log(obj[0])
+  var first = true
+
+	// Group merged document by org_code and year
+	var grpOrg = _.groupBy(obj, function(el){
+	  return (get_org_code(el)+":"+get_year(el))
+	})
+  
+  var intObj = _.map(grpOrg, function(records, org_code_and_year) {
+    var org_code = org_code_and_year.split(":")[0]
+    var year = org_code_and_year.split(":")[1]
     var to_insert = {
-		    org_code: org_code
+		  org_code: org_code
+		, year: year
+		, realm: folder
     }
-    // The different files have many different year fields
-    to_insert.year = el.FY_CODE || el.REC_YEAR || el.ORG_FY || el.GRADUATING_YEAR || el.YEAR || el.SY || el.FY || fileroot_year
-    var int_year = parseInt(to_insert.year)
-    // don't save record if there is no year
-    if ((int_year < 1970) || (int_year > 2015)) {
-      to_insert.year = "NA"
-    }
-    to_insert.realm = folder
-    to_insert[fileroot] = el
+    to_insert[fileroot] = records
     return to_insert
   })
+  console.log("obj out size:",intObj.length)
+  //if (intObj.length) {
+  //  console.log(intObj[0].org_code, intObj[0].year, intObj[0].realm)
+  //  _.map(intObj[0], function(val, key) {
+  //    console.log(key, val[0])
+  //  })
+  //}
 
 	// Merge with previous state document
 	intObj = _.union(intObj,options.state)

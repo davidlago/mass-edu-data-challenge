@@ -25,9 +25,6 @@ exports.walk_and_load = function(dirBase,store) {
   var walker = walk.walk(walk_path, options)
 
   walker.on("file", function (path, fileStats, next) {
-    var tail = fileStats.name.substring(fileStats.name.length-5,fileStats.name.length)
-    console.log(tail)
-
     var tail = fileStats.name.substring(fileStats.name.length-4,fileStats.name.length)
     if (tail == ".csv") {
       var folder = path.split("/")
