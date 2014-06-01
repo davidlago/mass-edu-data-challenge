@@ -21,6 +21,7 @@ MongoClient.connect("mongodb://localhost:27017/massedu", function(err, db) {
   , collection: collection
   , do_not_process: do_not_process
   })
+  //db.close()
   /*
 						// Insert in collection
 						endState.forEach(function(myState) {

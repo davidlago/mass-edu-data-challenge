@@ -3,10 +3,7 @@ var path = require('path')
 var _ = require('underscore')
 
 function get_org_code(el) {
-  var dist_code = el.DIST_CODE || "" // 8 digit
-  var school = el.SCHOOL || "" // 8 digit
-  if (school == "") { school = dist_code }
-  var org_code = el.ORG_CODE || el.SCHOOL_CODE || el.DIST_SCHOOL_CODE ||(el.DISTRICT_CODE+"0000") || school
+  var org_code = el.SCHOOL || el.DIST_CODE || el.ORG_CODE || el.SCHOOL_CODE || el.DIST_SCHOOL_CODE ||(el.DISTRICT_CODE+"0000")
   return org_code
 }
 
@@ -43,6 +40,7 @@ exports.loadJSON = function (options) {
   // replace spaces with underscores
   fileroot = fileroot.replace(/ /g,"_")
   // replace multipule underscores with a single one
+  fileroot = fileroot.replace(/__/g,"_")
   fileroot = fileroot.replace(/__/g,"_")
   fileroot = fileroot.replace(/_$/,"")
   
