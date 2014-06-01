@@ -19,20 +19,38 @@ router.route('/:org_code').get(function(req, res) {
 		var realm = req.query.realm
 		var year = req.query.year
 		var query = {}
-		query.ORG_CODE = req.params.org_code
+		query.org_code = req.params.org_code
 
-		console.log('=====> New query for ORG_CODE ' + req.params.org_code)
+		console.log('=====> New query for org_code ' + req.params.org_code)
 
 		if(realm) {
 			console.log('Querying for realm ' + realm)
-			//...
+			//query[realm] = {$exists: true}
+
+			
+
+			var or1 = {}
+			or1[realm] = {$exists: true}
+			var or2 = {}
+			or2.realm = realm
+			query.$or = [or1,or2]
+
+
+			// SAMPLE OR QUERY TERM:
+			// {
+			//   title:"MongoDB",
+			//   $or:[
+			//     {author:"Daniel"},
+			//     {author:"Jessica"}
+			//   ]
+			// }
 		}
 		if(year) {
 			console.log('Querying for year ' + year)
-			//...
+			query.year = year
 		}
 
-		collection.findOne(query, function(err, document) {
+		collection.find(query).toArray(function(err, document) {
 			if(err) // General error
 				res.send(500)
 			else if (!document) // Not found
