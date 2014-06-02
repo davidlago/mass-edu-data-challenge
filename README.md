@@ -24,7 +24,7 @@ http://api.massedu.info/{org_code}[?realm={realm}][&year={year}]
 ### Sample calls
 Financial information about district `0007` for the year 2012:
 ```
-GET http://api.massedu.info/00070000?realm=financial&year=2012
+http://api.massedu.info/00070000?realm=financial&year=2012
 ```
 MCAS information for school `0013` in district `00007`:
 ```
