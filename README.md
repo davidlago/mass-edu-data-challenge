@@ -13,9 +13,13 @@ On top of MongoDB, we are developing a RESTful API using Node.js, that we are ma
 
 ### Interface
 The API returns an array of JSON documents matching the search criteria. The fields that can contribute to a search are:
-* `org_code`: this is the eight digit organization code mentioned before
-* `realm`: domain of the information. Examples are financial, mcas, attrition...
-* `year`: four digit year
+* `org_code`: Mandatory. This is the eight digit organization code mentioned before
+* `realm`: Domain of the information. Examples are financial, mcas, attrition...
+* `year`: Four digit year
+The full API interface is:
+```
+http://api.massedu.info/{org_code}[?realm={realm}][&year={year}]
+```
 
 ### Sample calls
 Financial information about district `0007` for the year 2012:
@@ -25,4 +29,8 @@ GET http://api.massedu.info/00070000?realm=financial&year=2012
 MCAS information for school `0013` in district `00007`:
 ```
 http://api.massedu.info/00070013?realm=mcas
+```
+All available info for school `0013` in district `0007` for 2014:
+```
+http://api.massedu.info/00070013?year=2014
 ```
