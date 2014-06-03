@@ -1,4 +1,4 @@
-mass-edu-data-challenge
+mass-edu-data-challenge [![Build Status](https://travis-ci.org/davidlago/mass-edu-data-challenge.png)](https://travis-ci.org/davidlago/mass-edu-data-challenge)
 =======================
 
 Repository for the Mass Edu data challenge: http://bit.ly/1tRePCQ
