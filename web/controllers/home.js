@@ -5,6 +5,6 @@
 
 exports.index = function(req, res) {
   res.render('home', {
-    title: 'Home'
+    title: 'Mass Edu info portal'
   });
 };
