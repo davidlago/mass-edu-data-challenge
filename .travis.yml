@@ -1,0 +1,10 @@
+language: node_js
+
+node_js:
+  - "0.10"
+
+install:
+  - cd ./api
+  - ../travis-tool.sh install_deps
+
+script: ../travis-tool.sh run_tests
