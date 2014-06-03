@@ -63,5 +63,8 @@
     "mocha": "^1.19.0",
     "multiline": "^0.3.4",
     "supertest": "^0.13.0"
+  },
+  "engines": {
+    "node": "0.10.x"
   }
 }
