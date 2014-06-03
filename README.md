@@ -21,6 +21,14 @@ The full API interface is:
 http://api.massedu.info/{org_code}[?realm={realm}][&year={year}]
 ```
 
+Two other endpoints are provided, which return full lists of schools and districts, respectively:
+```
+http://api.massedu.info/schools
+````
+````
+http://api.massedu.info/districts
+````
+
 ### Sample calls
 Financial information about district `0007` for the year 2012:
 ```
