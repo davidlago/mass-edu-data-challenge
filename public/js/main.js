@@ -25,7 +25,7 @@ $(document).ready(function() {
 	$('#inputSchool').attr('disabled',true);
 
 	var schools = [];
-	$.getJSON( "http://api.massedu.info/schools", function(data) {
+	$.getJSON( "http://localhost/schools", function(data) {
 		schools = data;
 		$('#schoolsTypeahead .typeahead').typeahead({
 		  hint: true,
