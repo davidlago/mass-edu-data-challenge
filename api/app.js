@@ -21,7 +21,7 @@ MongoClient.connect(dburl, function(err, db) {
 
 	// Returns a list of schools
 	router.route('/schools').get(function(req, res) {
-
+		res.header("Access-Control-Allow-Origin", "*");
 		// Peform a simple group by on an empty collection
     	collection.group(['org_code','org_name'], {'org_code':{ $regex: '^((?!\\d{4}0000).)*$', $options: 'g' }}, {}, "function (obj, prev) {}", function(err, results) {
 			if(err) // General error
@@ -37,7 +37,7 @@ MongoClient.connect(dburl, function(err, db) {
 
 	// Returns a list of districts
 	router.route('/districts').get(function(req, res) {
-
+		res.header("Access-Control-Allow-Origin", "*");
 		// Peform a simple group by on an empty collection
     	collection.group(['org_code','org_name'], {'org_code':{ $regex: '\\d{4}0{4}', $options: 'g' }}, {}, "function (obj, prev) {}", function(err, results) {
 			if(err) // General error
@@ -54,7 +54,7 @@ MongoClient.connect(dburl, function(err, db) {
 	// Queries the documents by an organization code (school or district)
 	router.route('/:org_code').get(function(req, res) {
 
-		
+		res.header("Access-Control-Allow-Origin", "*");
 
 		var realm = req.query.realm
 		var year = req.query.year
