@@ -77,3 +77,7 @@ block content
     p: a.text-danger(href='/account/unlink/facebook') Unlink your Facebook account
   else
     p: a(href='/auth/facebook') Link your Facebook account
+  if user.github
+    p: a.text-danger(href='/account/unlink/github') Unlink your GitHub account
+  else
+    p: a(href='/auth/github') Link your GitHub account
