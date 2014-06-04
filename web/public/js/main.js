@@ -1,5 +1,5 @@
 $(document).ready(function() {
-	
+
 	var substringMatcher = function(strs) {
 	  return function findMatches(q, cb) {
 	    var matches, substringRegex;
@@ -13,38 +13,32 @@ $(document).ready(function() {
 	    // iterate through the pool of strings and for any string that
 	    // contains the substring `q`, add it to the `matches` array
 	    $.each(strs, function(i, str) {
-	      if (substrRegex.test(str)) {
+	      if (substrRegex.test(str.org_code)) {
 	        // the typeahead jQuery plugin expects suggestions to a
 	        // JavaScript object, refer to typeahead docs for more info
-	        matches.push({ value: str });
+	        matches.push({ value: str.org_code });
 	      }
 	    });
 	 
 	    cb(matches);
 	  };
 	};
-	 
-	var schools = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California',
-	  'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii',
-	  'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana',
-	  'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota',
-	  'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire',
-	  'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota',
-	  'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island',
-	  'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont',
-	  'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'
-	];
-	 
-	$('#schoolsTypeahead .typeahead').typeahead({
-	  hint: true,
-	  highlight: true,
-	  minLength: 1
-	},
-	{
-	  name: 'schools',
-	  displayKey: 'value',
-	  source: substringMatcher(schools)
-	});
-	  
 
+	var schools = [];
+	$.getJSON( "http://api.massedu.info/schools", function(data) {
+		schools = data;
+		$('#schoolsTypeahead .typeahead').typeahead({
+		  hint: true,
+		  highlight: true,
+		  minLength: 1
+		},
+		{
+		  name: 'schools',
+		  displayKey: 'value',
+		  source: substringMatcher(schools)
+		});
+  	});
+
+ 
 });
+
