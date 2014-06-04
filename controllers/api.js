@@ -18,17 +18,127 @@ var clockwork = require('clockwork')({key: secrets.clockwork.apiKey});
 var ig = require('instagram-node').instagram();
 var Y = require('yui/yql');
 var _ = require('underscore');
+var MongoClient = require('mongodb').MongoClient
 
-/**
- * GET /api
- * List of API examples.
- */
+var dburl = process.env.DB_URL || "mongodb://localhost:27017/massedu";
 
-exports.getApi = function(req, res) {
-  res.render('api/index', {
-    title: 'API Examples'
-  });
+
+
+  // /**
+  //  * GET /api
+  //  * List of API examples.
+  //  */
+
+  // exports.getApi = function(req, res) {
+  //   res.render('api/index', {
+  //     title: 'API Examples'
+  //   });
+  // };
+
+
+// Gets all info about an org_code (school OR district)
+// ----------------------------------------------------
+
+exports.getOrgCode = function(req, res) {
+  res.header("Access-Control-Allow-Origin", "*");
+
+    MongoClient.connect(dburl, function(err, db) {
+      if(err) { return console.dir(err); }
+
+      var collection = db.collection('org_code')
+
+      var realm = req.query.realm
+      var year = req.query.year
+      var query = {}
+      query.org_code = req.params.org_code
+
+      console.log('=====> New query for org_code ' + req.params.org_code)
+
+      if(realm) {
+        console.log('Querying for realm ' + realm)
+        //query[realm] = {$exists: true}
+
+        
+
+        var or1 = {}
+        or1[realm] = {$exists: true}
+        var or2 = {}
+        or2.realm = realm
+        query.$or = [or1,or2]
+      }
+      if(year) {
+        console.log('Querying for year ' + year)
+        query.year = year
+      }
+
+      collection.find(query).toArray(function(err, document) {
+        if(err) // General error
+          res.send(500)
+        else if (!document) // Not found
+          res.send(404)
+          else // Everything OK, send result
+            res.json(document)
+        db.close();
+      });
+    });
 };
+
+// Get list of schools
+// -------------------
+
+exports.getSchools = function(req, res) {
+  res.header("Access-Control-Allow-Origin", "*");
+
+    MongoClient.connect(dburl, function(err, db) {
+      if(err) { return console.dir(err); }
+
+      var collection = db.collection('org_code')
+
+      res.header("Access-Control-Allow-Origin", "*");
+      // Peform a simple group by on an empty collection
+        collection.group(['org_code','org_name'], {'org_code':{ $regex: '^((?!\\d{4}0000).)*$', $options: 'g' }}, {}, "function (obj, prev) {}", function(err, results) {
+        if(err) // General error
+          res.send(500)
+        else if (!results) // Not found
+          res.send(404)
+          else // Everything OK, send result
+            res.json(results)
+        db.close();
+      });
+
+    });
+};
+
+// Get list of districts
+// ---------------------
+
+exports.getDistricts = function(req, res) {
+  res.header("Access-Control-Allow-Origin", "*");
+
+    MongoClient.connect(dburl, function(err, db) {
+      if(err) { return console.dir(err); }
+
+      var collection = db.collection('org_code')
+
+      res.header("Access-Control-Allow-Origin", "*");
+      // Peform a simple group by on an empty collection
+        collection.group(['org_code','org_name'], {'org_code':{ $regex: '\\d{4}0{4}', $options: 'g' }}, {}, "function (obj, prev) {}", function(err, results) {
+        if(err) // General error
+          res.send(500)
+        else if (!results) // Not found
+          res.send(404)
+          else // Everything OK, send result
+            res.json(results)
+        db.close();
+      });
+
+    });
+};
+
+
+
+
+
 
 /**
  * GET /api/foursquare
