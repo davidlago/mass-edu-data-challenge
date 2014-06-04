@@ -9,36 +9,65 @@ As a first step, we are aggregating the data from the different files provided u
 The Node.js program tha parses the data files under the `data` directory is located inside `import`. You can edit the database it connects to and run it locally to populate your own MongoDB instance.
 
 ## API
-On top of MongoDB, we are developing a RESTful API using Node.js, that we are making public at `http://api.massedu.info`. The different data is now keyed by the organization code, an eight-digit number that represents the district (first four) and school (last four). If the last four are zeroes the information pertains to a district, otherwise it belongs to a particular school.
+On top of MongoDB, we are developing a RESTful API using Node.js, that we are making public at `http://massedu.info/api`. The different data is now keyed by the organization code, an eight-digit number that represents the district (first four) and school (last four). If the last four are zeroes the information pertains to a district, otherwise it belongs to a particular school.
 
 ### Interface
-The API returns an array of JSON documents matching the search criteria. The fields that can contribute to a search are:
-* `org_code`: Mandatory. This is the eight digit organization code mentioned before
+#### /schools
+This endpoint returns schools and school information. When called without parameters, it returns a list of all available schools in the dataset. When called with an organization ID, it returns all the data about that particular school. If you want to narrow down the data returned about the school, two parameters can be used:
+
 * `realm`: Domain of the information. Examples are financial, mcas, attrition...
 * `year`: Four digit year
-The full API interface is:
+
+##### Sample calls:
+
+Get all the schools in the dataset:
 ```
-http://api.massedu.info/{org_code}[?realm={realm}][&year={year}]
+http://massedu.info/api/schools
 ```
 
-Two other endpoints are provided, which return full lists of schools and districts, respectively:
+Get all the information about school `00070013`:
 ```
-http://api.massedu.info/schools
-````
-````
-http://api.massedu.info/districts
+http://massedu.info/api/schools/00070013
 ````
 
-### Sample calls
-Financial information about district `0007` for the year 2012:
+Get only the 2014 data for school `00070013`:
+````
+http://massedu.info/api/school/00070013?year=2014
+````
+
+Get only student information for 2014 for school `00070013`:
+````
+http://massedu.info/api/schools/00070013?year=2014&realm=students
+````
+
+
+#### /districts
+This endpoint returns districts and district information. When called without parameters, it returns a list of all available districts in the dataset. When called with an organization ID, it returns all the data about that particular district. If you want to narrow down the data returned about the district, two parameters can be used:
+
+* `realm`: Domain of the information. Examples are financial, mcas, attrition...
+* `year`: Four digit year
+
+##### Sample calls:
+
+Get all the districts in the dataset:
 ```
-http://api.massedu.info/00070000?realm=financial&year=2012
+http://massedu.info/api/districts
 ```
-MCAS information for school `0013` in district `00007`:
+
+Get all the information about district `02260000`:
 ```
-http://api.massedu.info/00070013?realm=mcas
-```
-All available info for school `0013` in district `0007` for 2014:
-```
-http://api.massedu.info/00070013?year=2014
-```
+http://massedu.info/api/districts/02260000
+````
+
+Get only the 2014 data for district `02260000`:
+````
+http://massedu.info/api/districts/02260000?year=2014
+````
+
+Get only teacher information for 2014 for district `02260000`:
+````
+http://massedu.info/api/districts/02260000?year=2014&realm=educators_teachers
+````
+
+## Website
+Using the API, we are starting to build a website at http://massedu.info.
