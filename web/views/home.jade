@@ -2,7 +2,13 @@ extends layout
 
 block content
   h1 Massachusetts Education info portal
-  p.lead
-    | This website is under construction... come back later!
-    br
-    | You can check out our public data API at http://api.massedu.info, documented at http://github.com/davidlago/mass-edu-data-challenge.
+  
+  div.row
+    div.col-sm-12
+      p Enter the name of the school in the box below, and we'll see if we have anything on it:
+      form.form-horizontal(role="form")
+        div.form-group
+          div.col-xs-12.col-sm-4
+            input.form-control(id="inputSchool",placeholder="Enter school name...",type="text")
+          div.col-xs-12.col-sm-8
+  div.col-md-3
