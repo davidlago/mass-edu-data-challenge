@@ -21,6 +21,9 @@ $(document).ready(function() {
 	  };
 	};
 
+	// Disable input until typeahead loads
+	$('#inputSchool').attr('disabled',true);
+
 	var schools = [];
 	$.getJSON( "http://api.massedu.info/schools", function(data) {
 		schools = data;
@@ -34,6 +37,10 @@ $(document).ready(function() {
 		  displayKey: 'value',
 		  source: substringMatcher(schools)
 		});
+
+		$('#inputSchool').removeAttr('disabled').css('background','white').attr('placeholder','Enter school name...')
+		$('.tt-hint').removeAttr('disabled')
+
   	});
 
  
