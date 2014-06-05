@@ -86,6 +86,7 @@ function parse_and_load(options, next) {
     })
     var size_of_inserts = _.size(inserts)
     console.log("Size of inserts: ",size_of_inserts)
+    //
     if (size_of_inserts != 0) {
       //options.collection.update(searchParm, {$set: insertParm}, {upsert:true}
       options.collection.insert(inserts, {w: 1}, function(err, records){

@@ -1,9 +1,16 @@
 var fs  = require('fs')
 var path = require('path')
 var _ = require('underscore')
+var get_name_dict = require('./get_name_dict')
+
+var name_dict = get_name_dict.name_dict()
+
+//var org_code_fields = ['SCHOOL', 'DIST_CODE', 'ORG_CODE', 'SCHOOL_CODE', 'DIST_SCHOOL_CODE', 'DISTRICT_CODE']
+//var org_name_fields = ['ORG_NAME', 'DISTRICT_NAME', 'DISTRICT', 'SCHOOL_NAME', 'WPI_ORG_NAME']
+
 
 function get_org_code(el) {
-  var org_code = el.SCHOOL || el.DIST_CODE || el.ORG_CODE || el.SCHOOL_CODE || el.DIST_SCHOOL_CODE ||(el.DISTRICT_CODE+"0000")
+  var org_code = el.SCHOOL || el.SCHOOL_CODE || el.DIST_CODE || el.ORG_CODE ||  el.DIST_SCHOOL_CODE ||(el.DISTRICT_CODE+"0000")
   return org_code
 }
 
@@ -70,12 +77,14 @@ exports.loadJSON = function (options) {
 	var grpOrg = _.groupBy(obj, function(el){
 	  return (get_org_code(el)+":"+get_year(el, fileroot_year))
 	})
-  
+  var blat = 0
   var intObj = _.map(grpOrg, function(records, org_code_and_year) {
     var org_code = org_code_and_year.split(":")[0]
     var year = org_code_and_year.split(":")[1]
+      
     var to_insert = {
 		  org_code: org_code
+		, org_name: name_dict[org_code]
 		, year: year
 		, realm: folder
     }
