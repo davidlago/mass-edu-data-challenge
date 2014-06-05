@@ -52,14 +52,7 @@ exports.getOrgCode = function(req, res) {
       var query = {}
       query.org_code = req.params.org_code
 
-      console.log('=====> New query for org_code ' + req.params.org_code)
-
       if(realm) {
-        console.log('Querying for realm ' + realm)
-        //query[realm] = {$exists: true}
-
-        
-
         var or1 = {}
         or1[realm] = {$exists: true}
         var or2 = {}
@@ -67,8 +60,7 @@ exports.getOrgCode = function(req, res) {
         query.$or = [or1,or2]
       }
       if(year) {
-        console.log('Querying for year ' + year)
-        query.year = year
+         query.year = year
       }
 
       collection.find(query).toArray(function(err, document) {

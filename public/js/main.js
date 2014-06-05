@@ -11,9 +11,8 @@ $(document).ready(function() {
 		    substrRegex = new RegExp(q, 'i');
 
 		    $.each(strs, function(i, str) {
-		    	// CHANGE ORG_CODE FOR ORG_NAME WHEN READY!!
-		      if (substrRegex.test(str.org_code)) {
-		        matches.push({ value: str.org_code });
+		      if (substrRegex.test(str.org_name)) {
+		        matches.push({ value: str.org_name });
 		      }
 		    });
 	 	}
