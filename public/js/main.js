@@ -12,7 +12,7 @@ $(document).ready(function() {
 
 		    $.each(strs, function(i, str) {
 		      if (substrRegex.test(str.org_name)) {
-		        matches.push({ value: str.org_name });
+		        matches.push({ value: str.org_name, valueKey: str.org_code });
 		      }
 		    });
 	 	}
@@ -27,21 +27,35 @@ $(document).ready(function() {
 	$.getJSON( "http://massedu.info/api/schools", function(data) {
 		schools = data;
 		$('#schoolsTypeahead .typeahead').typeahead({
-		  hint: true,
-		  highlight: true,
-		  minLength: 1
-		},
-		{
-		  name: 'schools',
-		  displayKey: 'value',
-		  source: substringMatcher(schools)
-		});
+			  hint: true,
+			  highlight: true,
+			  minLength: 1
+			},
+			{
+			  name: 'schools',
+			  displayKey: 'value',
+			  source: substringMatcher(schools)
+	    	}
+	    );
 
 		$('#inputSchool').removeAttr('disabled').css('background','white').attr('placeholder','Enter school name...')
 		$('.tt-hint').removeAttr('disabled')
+		
+		// Function that handles user selection
+		$('#inputSchool').on('typeahead:selected', function (e, datum) {
 
-  	});
+			// Query the school
+			var url = "http://massedu.info/api/schools/" + datum.valueKey
+			$.getJSON( url, function(data) {
 
- 
+        $("#resultsDiv").text("")
+        $("#resultsDiv").append("<p>We didn't say it would look pretty :)</p>")
+        $("#resultsDiv").append( "<p>" + JSON.stringify(data) + "</p>")
+			});
+		    
+		});
+
+  });
+
 });
 
