@@ -44,6 +44,8 @@ $(document).ready(function() {
 		// Function that handles user selection
 		$('#inputSchool').on('typeahead:selected', function (e, datum) {
 
+      $("#resultsDiv").text("")
+      $("#resultsDiv").append("<p>Searching records for " + datum.value + "...</p>")
 			// Query the school
 			var url = "http://massedu.info/api/schools/" + datum.valueKey
 			$.getJSON( url, function(data) {
