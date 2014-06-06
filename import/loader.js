@@ -6,6 +6,7 @@ var get_name_dict = require('./get_name_dict')
 var name_dict = get_name_dict.name_dict()
 
 //var org_code_fields = ['SCHOOL', 'DIST_CODE', 'ORG_CODE', 'SCHOOL_CODE', 'DIST_SCHOOL_CODE', 'DISTRICT_CODE']
+
 //var org_name_fields = ['ORG_NAME', 'DISTRICT_NAME', 'DISTRICT', 'SCHOOL_NAME', 'WPI_ORG_NAME']
 
 
@@ -16,7 +17,7 @@ function get_org_code(el) {
 
 function get_year(el, fileroot_year) {
   // The different files have many different year fields
-  var year = el.FY_CODE || el.REC_YEAR || el.ORG_FY || el.GRADUATING_YEAR || el.YEAR || el.SY || el.FY || fileroot_year
+  var year = el.FY_CODE || el.REC_YEAR || el.ORG_FY || el.GRADUATING_YEAR || el.YEAR || el.SY || el.FY || el.Year || el.adminyear || fileroot_year
   var int_year = parseInt(year)
   // don't save record if there is no year
   if ((int_year < 1970) || (int_year > 2015)) {

@@ -14,6 +14,44 @@ var options = {
 
 var state =  []
 
+exports.filelist = function(options, callback) {
+  var dirBase = options.dirBase
+  var walk_path = path.normalize(__dirname+"/"+dirBase)
+
+  var walker = walk.walk(walk_path, options)
+
+  var files = []
+
+  walker.on("file", function (root, fileStats, next) {
+    var tail = fileStats.name.substring(fileStats.name.length-4,fileStats.name.length)
+    if (tail == ".csv") {
+      var file = path.normalize(root+"/"+fileStats.name)
+      files.push(file)
+      //console.log(file)
+    }
+    next()
+  })
+
+  walker.on("end", function() {
+    callback(files)
+  })
+  
+  walker.on("errors", function (root, nodeStatsArray, next) {
+    console.log("error")
+    next();
+  })
+}
+
+exports.separator = function(filename) {
+  var test_input = fs.openSync(filename, "r")
+  var chunk = new Buffer(80)
+  var number_read = fs.readSync(test_input,chunk,0,80,0)
+  fs.close(test_input)
+  var separator = ',' 
+  if (chunk.toString().indexOf('\t') != -1) { separator = '\t' }
+  return separator
+}
+
 exports.walk_and_load = function(options) {
   var dirBase = options.dirBase
 
