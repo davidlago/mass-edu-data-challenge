@@ -6,7 +6,7 @@ $(document).ready(function() {
 	 	
 	    matches = [];
 
-	    if(q.length >= 3) { // Only search from 3rd character entered, makes it faster
+	    if(q.length >= 2) { // Only search from 2nd character entered, makes it faster
 		 
 		    substrRegex = new RegExp(q, 'i');
 
