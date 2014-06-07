@@ -54,18 +54,6 @@ exports.loadJSON = function (options) {
   
   console.log("fileroot:",fileroot)
 
-	// Group input document by ORG_CODE
-	//var grpORG = _.groupBy(obj, function(el){ return el.ORG_CODE })
-
-	// Format the insides of the intermediate object for each grouped ORG_CODE element
-	//for (var index in grpORG) {
-	//	var item = grpORG[index]		
-	//	var tempObj = {}
-	//	tempObj.ORG_CODE = item[0].ORG_CODE
-	//	tempObj[options.folder] = {}
-	//	tempObj[options.folder][filename] = item
-	//	intObj.push(tempObj)
-	//}
 	var folder = options.path.split(/[\/\\]data[\/\\]/)[1]
   console.log("folder/realm:", folder)
 	
@@ -95,61 +83,9 @@ exports.loadJSON = function (options) {
     return to_insert
   })
   console.log("obj out size:",intObj.length)
-  //if (intObj.length) {
-  //  console.log(intObj[0].org_code, intObj[0].year, intObj[0].realm)
-  //  _.map(intObj[0], function(val, key) {
-  //    console.log(key, val[0])
-  //  })
-  //}
 
 	// Merge with previous state document
 	intObj = _.union(intObj,options.state)
   return intObj
-  
-	/*
-
-	// Group merged document by ORG_CODE again
-	var grpORGT = _.groupBy(intObj, function(el){ return el.ORG_CODE })
-	
-	// For each final grouped ORG_CODE, further group by folder name
-	for (var indexT in grpORGT) {
-		
-		var insides = grpORGT[indexT]
-		var insGrp = _.groupBy(insides, function(el){ 
-			var myFolder = ''
-			for (var index in el) {
-				myFolder = index
-			}
-			return myFolder
-		})
-
-		var insElem = {}
-		insElem.ORG_CODE = insides[0].ORG_CODE
-
-		// For each grouped folder, fill insides of the document
-		for(var attributename in insGrp){
-
-			insElem[attributename] = {}
-			
-			for(var i=0; i<insGrp[attributename].length; i++) {
-				
-				var tempEl = insGrp[attributename][i]
-				
-				for(var attributenameT in tempEl[attributename]){
-					if(attributenameT != 'ORG_CODE') {
-						insElem[attributename][attributenameT] = 
-							tempEl[attributename][attributenameT]
-
-					}
-				}
-			}
-		}
-
-		// Add main, aggregated ORG_CODE object to final document
-		finalObj.push(insElem)
-	}
-	// Return final document
-	return finalObj
-	*/
 
 }
