@@ -1,0 +1,140 @@
+[{
+    "realm": "accountability",
+    "subrealms": [
+      {
+        "name": "accountability",
+        "org_type": "school",
+        "description": "",
+      }
+    ]
+},
+{
+    "realm": "assessment",
+    "subrealms": [
+      {
+        "name": "amao",
+        "org_type": "district",
+        "description": ""
+      },
+      {
+        "name": "ap_participation",
+        "org_type": "district",
+        "description": ""
+      },
+      {
+        "name": "ap_performance",
+        "org_type": "district",
+        "description": ""
+      },
+      {
+        "name": "sat_performance_report",
+        "org_type": "district",
+        "description": ""
+      }
+    ]
+},
+{
+    "realm": "educators_teachers",
+    "subrealms": [
+      {
+        "name": "educator_evaluation_performance",
+        "org_type": "both",
+        "description": ""
+      },
+      {
+        "name": "staffing_age_report",
+        "org_type": "both",
+        "description": ""
+      },
+      {
+        "name": "staffing_race_gender",
+        "org_type": "both",
+        "description": ""
+      },
+      {
+        "name": "teacher_data_report",
+        "org_type": "both",
+        "description": ""
+      },
+      {
+        "name": "teacher_grade_subject",
+        "org_type": "both",
+        "description": ""
+      },
+      {
+        "name": "teacher_program_area",
+        "org_type": "both",
+        "description": ""
+      }
+    ]
+},
+{
+    "realm": "financial",
+    "subrealms": [
+      {
+        "name": "per_pupil_expenditure_report",
+        "org_type": "district",
+        "description": ""
+      }
+    ]
+},
+{
+    "realm": "mcas",
+    "subrealms": [
+      {
+        "name": "_Educator_Evaluation_Data",
+        "org_type": "district",
+        "description": ""
+      }
+    ]
+},
+{
+    "realm": "students",
+    "subrealms": [
+      {
+        "name": "attrition",
+        "org_type": "both",
+        "description": ""
+      },
+      {
+        "name": "class_size_by_gender",
+        "org_type": "both",
+        "description": ""
+      },
+      {
+        "name": "class_size_by_race",
+        "org_type": "both",
+        "description": ""
+      },
+      {
+        "name": "enrollment_by_grade",
+        "org_type": "district",
+        "description": ""
+      },
+      {
+        "name": "graduation_rate_report",
+        "org_type": "district",
+        "description": ""
+      },
+      {
+        "name": "indicator_report",
+        "org_type": "both",
+        "description": ""
+      },
+      {
+        "name": "masscore",
+        "org_type": "district",
+        "description": ""
+      },
+      {
+        "name": "mobility",
+        "org_type": "both",
+        "description": ""
+      },
+      {
+        "name": "plans_of_high_school_graduates",
+        "org_type": "both",
+        "description": ""
+      }
+    ]
+}]
