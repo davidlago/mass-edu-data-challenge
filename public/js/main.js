@@ -12,7 +12,8 @@ $(document).ready(function() {
 
 		    $.each(strs, function(i, str) {
 		      if (substrRegex.test(str.org_name)) {
-		        matches.push({ value: str.org_name, valueKey: str.org_code });
+		      	var comp_name = str.dist_name + " - " + str.org_name
+		        matches.push({ value: comp_name, valueKey: str.org_code });
 		      }
 		    });
 	 	}

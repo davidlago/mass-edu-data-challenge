@@ -88,7 +88,7 @@ exports.getSchools = function(req, res) {
 
       res.header("Access-Control-Allow-Origin", "*");
       // Peform a simple group by on an empty collection
-        collection.group(['org_code','org_name'], {'org_code':{ $regex: '^((?!\\d{4}0000).)*$', $options: 'g' }}, {}, "function (obj, prev) {}", function(err, results) {
+        collection.group(['org_code','org_name', 'dist_code', 'dist_name'], {'org_code':{ $regex: '^((?!\\d{4}0000).)*$', $options: 'g' }}, {}, "function (obj, prev) {}", function(err, results) {
         if(err) // General error
           res.send(500)
         else if (!results) // Not found
