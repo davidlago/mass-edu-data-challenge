@@ -6,7 +6,8 @@ exports.toTitleCase = function(original) {
 
   // Certain minor words should be left lowercase unless 
   // they are the first or last words in the string
-  var lowers = ['A', 'An', 'The', 'And', 'But', 'Or', 'For', 'Nor', 'As', 'At', 
+  // Remove 'A' since it could be an initial
+  var lowers = ['An', 'The', 'And', 'But', 'Or', 'For', 'Nor', 'As', 'At', 
   'By', 'For', 'From', 'In', 'Into', 'Near', 'Of', 'On', 'Onto', 'To', 'With'];
   for (i = 0, j = lowers.length; i < j; i++) {
     str = str.replace(new RegExp('\\s' + lowers[i] + '\\s', 'g'), function(txt) {
@@ -19,5 +20,14 @@ exports.toTitleCase = function(original) {
   for (i = 0, j = uppers.length; i < j; i++) {
     str = str.replace(new RegExp('\\b' + uppers[i] + '\\b', 'g'), uppers[i].toUpperCase())
   }
+  // Fix O'brian, etc
+  str = str.replace(/O'[a-z]/, function(m) { return m.toUpperCase() })
+  // Fix Mcgovern
+  str = str.replace(/Mc[a-z]/, function(m) { return "Mc"+m[2].toUpperCase() })
+  // Strip any *
+  str = str.replace(/\*/,"")
+  
   return str;
 }
+
+

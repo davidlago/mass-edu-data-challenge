@@ -82,10 +82,12 @@ exports.loadJSON = function (options) {
   var intObj = _.map(grpOrg, function(records, org_code_and_year) {
     var org_code = org_code_and_year.split(":")[0]
     var year = org_code_and_year.split(":")[1]
-      
+    var dist_code = org_code.substring(0,4)+"0000"
     var to_insert = {
 		  org_code: org_code
 		, org_name: name_dict[org_code]
+		, dist_code: dist_code
+		, dist_name: name_dict[dist_code]
 		, year: year
 		, realm: folder
     }
