@@ -96,6 +96,9 @@ app.use(function(req, res, next) {
   res.locals.user = req.user;
   next();
 });
+app.use(function(req,res,next) {
+  res.header("Access-Control-Allow-Origin", "*");
+});
 app.use(flash());
 app.use(express.static(path.join(__dirname, 'public'), { maxAge: week }));
 app.use(function(req, res, next) {
