@@ -11,7 +11,7 @@
 },
 {
     "realm": "assessment",
-    "description": "Assessment"
+    "description": "Assessment",
     "subrealms": [
       {
         "name": "amao",
@@ -84,7 +84,7 @@
 },
 {
     "realm": "mcas",
-    "description": "MCAS"
+    "description": "MCAS",
     "subrealms": [
       {
         "name": "_Educator_Evaluation_Data",
