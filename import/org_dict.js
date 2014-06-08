@@ -1,9 +1,10 @@
 var fs = require('fs')
-var walker = require('./walker')
+var path = require('path')
 var _ = require('underscore')
 var async = require('async')
 var split = require('split')
 var title = require('./title_case')
+var fileutil = require('./fileutil')
 
 var org_code_fields = ['SCHOOL', 'DIST_CODE', 'ORG_CODE', 'SCHOOL_CODE', 'DIST_SCHOOL_CODE', 'DISTRICT_CODE', '"District Code"', 'org_code', 'Org_code']
 var org_name_fields = ['ORG_NAME', 'DISTRICT_NAME', 'DISTRICT', 'SCHOOL_NAME', 'WPI_ORG_NAME', 'SchoolName', '"District Name"', 'DistrictName', '"DISTRICT NAME"', 'DIST_NAME']
@@ -23,7 +24,7 @@ function one_file(filename,callback) {
     callback()
     return
   }
-  var separator = walker.separator(filename)
+  var separator = fileutil.separator(filename)
   var lines = 0
   var header
   var org_code_index
@@ -107,8 +108,13 @@ function all_done() {
   console.log("--done--")
 }
 
+var walk_path = path.normalize(__dirname+"/"+"../data")
+
 var org_dict = {}
 var year_dict = {}
-walker.filelist({ dirBase: '../data' }, function(filelist) {
+fileutil.filelist({
+  dir: walk_path
+, extname: '.csv'
+}, function(filelist) {
   async.eachSeries(filelist, one_file, all_done)
 })
