@@ -78,7 +78,7 @@ $(document).ready(function() {
             $.getJSON( api_url + "years.json", function(years) {
 
               $("#yearsDropDown").remove() // Clear years dropdown and results
-              $("#rawResults").remove()
+              $("#resultsTable").remove()
 
               // Add drop-down with years
               $("#resultsDiv").append('<select class="form-control" id="yearsDropDown"'
@@ -96,8 +96,24 @@ $(document).ready(function() {
                 $.getJSON( api_url + "schools/" + datum.valueKey + "?realm=" + selRealm
                     + "&year=" + selYear, function(school) {
 
-                    $("#rawResults").remove() // Clear results
-                    $("#resultsDiv").append('<p id="rawResults">'+JSON.stringify(school)+'</p>')
+                    $("#resultsTable").remove() // Clear results
+
+                    if (school[0] != null) { // Results found!
+
+                      var resultEntry = school[0][selRealm][0]
+
+                      $("#resultsDiv").append('<table class="table table-condensed" id="resultsTable">'
+                        +'<thead><th>Field</th><th>Value</th></thead></table>')
+
+                      for(resultid in resultEntry)
+                        $("#resultsTable").append('<tr><td>'+resultid+'</td><td>'+resultEntry[resultid]+'</td></tr>')
+
+                    } else { // No results found
+
+                      $("#resultsDiv").append('<table class="table table-condensed" id="resultsTable">'
+                        +'<thead><th><th>No results found.</th></thead></table>')
+
+                    }
 
                 }); // Query the school
 
