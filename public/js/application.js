@@ -12,4 +12,3 @@
 //= require lib/jquery-2.1.0.min
 //= require lib/bootstrap.min
 //= require lib/typeahead.bundle
-//= require main

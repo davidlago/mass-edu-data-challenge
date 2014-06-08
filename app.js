@@ -25,6 +25,8 @@ var connectAssets = require('connect-assets');
  */
 
 var homeController = require('./controllers/home');
+var vizController = require('./controllers/viz');
+var compareController = require('./controllers/compare');
 var userController = require('./controllers/user');
 var apiController = require('./controllers/api');
 var contactController = require('./controllers/contact');
@@ -117,6 +119,8 @@ app.use(function(req, res, next) {
  */
 
 app.get('/', homeController.index);
+app.get('/visualizations', vizController.viz);
+app.get('/compare', compareController.compare);
 app.get('/login', userController.getLogin);
 app.post('/login', userController.postLogin);
 app.get('/logout', userController.logout);
