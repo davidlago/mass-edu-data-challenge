@@ -71,9 +71,14 @@ $(document).ready(function() {
 
           // Listen for realm selection
           $("#realmsDropDown").change(function(a) {
-
+            
+            var selRealm = $(this).val()
+            
             // Query the years
             $.getJSON( api_url + "years.json", function(years) {
+
+              $("#yearsDropDown").remove() // Clear years dropdown and results
+              $("#rawResults").remove()
 
               // Add drop-down with years
               $("#resultsDiv").append('<select class="form-control" id="yearsDropDown"'
@@ -84,8 +89,12 @@ $(document).ready(function() {
            
               // Listen for year selection
               $("#yearsDropDown").change(function(a) {
+
+                var selYear = $(this).val()
+
                 // Query the school
-                $.getJSON( api_url + "schools/" + datum.valueKey + "?realm=" + $(this).val() , function(school) {
+                $.getJSON( api_url + "schools/" + datum.valueKey + "?realm=" + selRealm
+                    + "&year=" + selYear, function(school) {
 
                     $("#rawResults").remove() // Clear results
                     $("#resultsDiv").append('<p id="rawResults">'+JSON.stringify(school)+'</p>')
