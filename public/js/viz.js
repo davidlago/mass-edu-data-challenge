@@ -27,7 +27,7 @@ $(document).ready(function() {
 	$('#inputSchool').attr('disabled',true);
 
 	var schools = [];
-	$.getJSON( api_url + "viz.json", function(data) {
+	$.getJSON( api_url + "schools.json", function(data) {
 		schools = data;
 		$('#schoolsTypeahead .typeahead').typeahead({
 			  hint: true,
@@ -59,20 +59,26 @@ $(document).ready(function() {
           // Add drop-down with visualizations
           $("#resultsDiv").append('<select class="form-control" id="vizDropDown"'
             + ' style="margin-bottom: 10px;"><option disabled>Select visualization...</option></select>')
-          for(vizid in viz)
+          for(vizid in viz) {
                 
               $("#vizDropDown").append('<option value='+viz[vizid].name+
                 '>'+viz[vizid].description+'</option>')
 
-            }
+          }
 
           // Listen for realm selection
           $("#vizDropDown").change(function(a) {
             
             var selViz = $(this).val()
             
-            // Do stuff here...
+            $("#vizDiv").text("")
 
+            if (selViz === "class_by_race")
+              viz_class_by_race('vizDiv',datum.valueKey,selViz,api_url)
+            else if (selViz === "viz2")
+              ; // Call here for viz2
+            else if (selViz === "viz3")
+              ; // Call here for viz3
 
           });
 

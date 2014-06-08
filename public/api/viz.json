@@ -1,14 +1,6 @@
 [
   { 
-    "name": "viz1",
-    "description": "visualization 1"
-  },
-  { 
-    "name": "viz2",
-    "description": "visualization 2"
-  },
-  { 
-    "name": "viz3",
-    "description": "visualization 3"
+    "name": "class_by_race",
+    "description": "Class size by race"
   }
 ]
