@@ -75,7 +75,8 @@ $(document).ready(function() {
             // Query the school
             $.getJSON( api_url + "schools/" + datum.valueKey + "?realm=" + $(this).val() , function(school) {
 
-                $("#resultsDiv").append('<p>'+JSON.stringify(school)+'</p>')
+                $("#rawResults").text("") // Clear results
+                $("#resultsDiv").append('<p id="rawResults">'+JSON.stringify(school)+'</p>')
 
             }); // Query the school
 
