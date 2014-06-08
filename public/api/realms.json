@@ -1,140 +1,146 @@
 [{
     "realm": "accountability",
+    "description": "Accountability",
     "subrealms": [
       {
         "name": "accountability",
         "org_type": "school",
-        "description": ""
+        "description": "Accountability"
       }
     ]
 },
 {
     "realm": "assessment",
+    "description": "Assessment"
     "subrealms": [
       {
         "name": "amao",
         "org_type": "district",
-        "description": ""
+        "description": "AMAO"
       },
       {
         "name": "ap_participation",
         "org_type": "district",
-        "description": ""
+        "description": "AP Participation"
       },
       {
         "name": "ap_performance",
         "org_type": "district",
-        "description": ""
+        "description": "AP Performance"
       },
       {
         "name": "sat_performance_report",
         "org_type": "district",
-        "description": ""
+        "description": "SAT Performance"
       }
     ]
 },
 {
     "realm": "educators_teachers",
+    "description": "Educators & Teachers",
     "subrealms": [
       {
         "name": "educator_evaluation_performance",
         "org_type": "both",
-        "description": ""
+        "description": "Educator evaluation performance"
       },
       {
         "name": "staffing_age_report",
         "org_type": "both",
-        "description": ""
+        "description": "Staffing age report"
       },
       {
         "name": "staffing_race_gender",
         "org_type": "both",
-        "description": ""
+        "description": "Staffing race & gender"
       },
       {
         "name": "teacher_data_report",
         "org_type": "both",
-        "description": ""
+        "description": "Teacher data report"
       },
       {
         "name": "teacher_grade_subject",
         "org_type": "both",
-        "description": ""
+        "description": "Teacher grade by subject"
       },
       {
         "name": "teacher_program_area",
         "org_type": "both",
-        "description": ""
+        "description": "Teacher program area"
       }
     ]
 },
 {
     "realm": "financial",
+    "description": "Financial",
     "subrealms": [
       {
         "name": "per_pupil_expenditure_report",
         "org_type": "district",
-        "description": ""
+        "description": "Expenditure per pupil"
       }
     ]
 },
 {
     "realm": "mcas",
+    "description": "MCAS"
     "subrealms": [
       {
         "name": "_Educator_Evaluation_Data",
         "org_type": "district",
-        "description": ""
+        "description": "Educator evaluation"
       }
     ]
 },
 {
     "realm": "students",
+    "description": "Students",
     "subrealms": [
       {
         "name": "attrition",
         "org_type": "both",
-        "description": ""
+        "description": "Attrition"
       },
       {
         "name": "class_size_by_gender",
         "org_type": "both",
-        "description": ""
+        "description": "Class size by gender"
       },
       {
         "name": "class_size_by_race",
         "org_type": "both",
-        "description": ""
+        "description": "Class size by race"
       },
       {
         "name": "enrollment_by_grade",
         "org_type": "district",
-        "description": ""
+        "description": "Enrollment by grade"
       },
       {
         "name": "graduation_rate_report",
         "org_type": "district",
-        "description": ""
+        "description": "Graduation rate report"
       },
       {
         "name": "indicator_report",
         "org_type": "both",
-        "description": ""
+        "description": "Indicator report"
       },
       {
         "name": "masscore",
         "org_type": "district",
-        "description": ""
+        "description": "Masscore"
       },
       {
         "name": "mobility",
         "org_type": "both",
-        "description": ""
+        "description": "Mobility"
       },
       {
         "name": "plans_of_high_school_graduates",
         "org_type": "both",
-        "description": ""
+        "description": "Plans of high school graduates"
       }
     ]
 }]
