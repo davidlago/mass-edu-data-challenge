@@ -1,20 +1,25 @@
 extends layout
 
 block content
-  h1 MassEdu Info
+  
 
   div.col-sm-12    
     form.form-horizontal(role="form")
       div.form-group
-        div.row
+        div.row(style="margin-bottom: 10px;")
+          div.col-xs-12.col-sm-3
           div.col-xs-12.col-sm-6
+            h1 MassEdu Info
             p Enter the name of the school in the box below to explore information made public by the
               a(href='http://www.doe.mass.edu/',target="_blank") &nbsp;Massachusetts Department of Elementary and Secondary Education:
+          div.col-xs-12.col-sm-3
         div.row
-          div.col-xs-12.col-sm-4(id="schoolsTypeahead")          
+          div.col-xs-12.col-sm-3
+          div.col-xs-12.col-sm-6(id="schoolsTypeahead")          
             input.form-control.typeahead(id="inputSchool",placeholder="Loading school list..."
               ,type="text",style="margin-bottom:5px;")
-          div.col-xs-12.col-sm-8
+          div.col-xs-12.col-sm-3
         div.row
-          div.col-xs-12.col-sm-4(id="resultsDiv")
-          div.col-xs-12.col-sm-8
+          div.col-xs-12.col-sm-3
+          div.col-xs-12.col-sm-6(id="resultsDiv")
+          div.col-xs-12.col-sm-3
