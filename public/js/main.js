@@ -21,11 +21,13 @@ $(document).ready(function() {
 	  };
 	};
 
+  var api_url = "http://massedu.info/api/"
+
 	// Disable input until typeahead loads
 	$('#inputSchool').attr('disabled',true);
 
 	var schools = [];
-	$.getJSON( "http://massedu.info/api/schools.json", function(data) {
+	$.getJSON( api_url + "schools.json", function(data) {
 		schools = data;
 		$('#schoolsTypeahead .typeahead').typeahead({
 			  hint: true,
@@ -45,20 +47,48 @@ $(document).ready(function() {
 		// Function that handles user selection
 		$('#inputSchool').on('typeahead:selected', function (e, datum) {
 
+      // Emtpy results div
       $("#resultsDiv").text("")
-      $("#resultsDiv").append("<p>Searching records for " + datum.value + "...</p>")
-			// Query the school
-			var url = "http://massedu.info/api/schools/" + datum.valueKey
-			$.getJSON( url, function(data) {
 
-        $("#resultsDiv").text("")
-        $("#resultsDiv").append("<p>We didn't say it would look pretty :)</p>")
-        $("#resultsDiv").append( "<p>" + JSON.stringify(data) + "</p>")
-			});
-		    
-		});
+      // Query the realms
+      $.getJSON( api_url + "realms.json", function(realms) {
+
+          // Empty results div
+          $("#resultsDiv").text("")
+
+          // Add drop-down with realms
+          $("#resultsDiv").append('<select class="form-control" id="realmsDropDown"><option>Select information type...</option></select>')
+          for(realmid in realms)
+            for(subrealmid in realms[realmid].subrealms) {
+              if (realms[realmid].subrealms[subrealmid].org_type === "school" ||
+                  realms[realmid].subrealms[subrealmid].org_type === "both")
+                
+                $("#realmsDropDown").append('<option value='+realms[realmid].subrealms[subrealmid].name+
+                  '>'+realms[realmid].description+' - '+realms[realmid].subrealms[subrealmid].description+'</option>')
+
+            }
+
+          // Listen for realm selection
+          $("#realmsDropDown").change(function(a) {
+
+            // Query the school
+            $.getJSON( api_url + "schools/" + datum.valueKey + "?realm=" + $(this).val() , function(school) {
+
+                $("#resultsDiv").append('<p>'+JSON.stringify(school)+'</p>')
+
+            }); // Query the school
+
+          });
+
+
+
+
+      }); // Query the realms
+			
+      
+
+    });
 
   });
 
 });
-
