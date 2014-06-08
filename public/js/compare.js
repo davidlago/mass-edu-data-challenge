@@ -142,8 +142,8 @@ $(document).ready(function() {
 
                         } else { // No results found
 
-                          $("#resultsDiv").append('<div class="table-responsive><table class="table table-condensed table-hover" id="resultsTable">'
-                            +'<thead><th><th>One or both of the schools are missing data for the selected realm/year.</th></thead></table></div>')
+                          $("#resultsDiv").append('<div class="table-responsive"><table class="table table-condensed table-hover" id="resultsTable">'
+                            +'<thead><th>One or both of the schools are missing data for the selected realm/year.</th></thead></table></div>')
 
                         }
 

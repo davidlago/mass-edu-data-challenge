@@ -115,7 +115,7 @@ $(document).ready(function() {
                     } else { // No results found
 
                       $("#resultsDiv").append('<div class="table-responsive"><table class="table table-condensed table-hover" id="resultsTable">'
-                        +'<thead><th><th>No results found.</th></thead></table></div>')
+                        +'<thead><th>No results found.</th></thead></table></div>')
 
                     }
 
