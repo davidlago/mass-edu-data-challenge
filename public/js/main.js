@@ -57,7 +57,8 @@ $(document).ready(function() {
           $("#resultsDiv").text("")
 
           // Add drop-down with realms
-          $("#resultsDiv").append('<select class="form-control" id="realmsDropDown"><option>Select information type...</option></select>')
+          $("#resultsDiv").append('<select class="form-control" id="realmsDropDown"'
+            + ' style="margin-bottom: 10px;"><option>Select information type...</option></select>')
           for(realmid in realms)
             for(subrealmid in realms[realmid].subrealms) {
               if (realms[realmid].subrealms[subrealmid].org_type === "school" ||
