@@ -131,8 +131,8 @@ $(document).ready(function() {
                           var resultEntry1 = school1[0][selRealm][0]
                           var resultEntry2 = school2[0][selRealm][0]
 
-                          $("#resultsDiv").append('<table class="table table-condensed table-hover" id="resultsTable">'
-                            +'<thead><th>Field</th><th>School 1</th><th>School 2</th></thead></table>'
+                          $("#resultsDiv").append('<div class="table-responsive"><table class="table table-condensed table-hover" id="resultsTable">'
+                            +'<thead><th>Field</th><th>School 1</th><th>School 2</th></thead></table></div>'
                             +'<p id="dictLink">For field descriptions, see the <a href=https://github.com/davidlago/mass-edu-data-challenge/raw/master/data/DATA%20DICTIONARY_2014.xlsx'
                             +' target="_blank">Data Dictionary</a>.</p>')
 
@@ -142,8 +142,8 @@ $(document).ready(function() {
 
                         } else { // No results found
 
-                          $("#resultsDiv").append('<table class="table table-condensed table-hover" id="resultsTable">'
-                            +'<thead><th><th>One or both of the schools are missing data for the selected realm/year.</th></thead></table>')
+                          $("#resultsDiv").append('<div class="table-responsive><table class="table table-condensed table-hover" id="resultsTable">'
+                            +'<thead><th><th>One or both of the schools are missing data for the selected realm/year.</th></thead></table></div>')
 
                         }
 

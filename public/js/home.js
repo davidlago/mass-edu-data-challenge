@@ -104,8 +104,8 @@ $(document).ready(function() {
 
                       var resultEntry = school[0][selRealm][0]
 
-                      $("#resultsDiv").append('<table class="table table-condensed table-hover" id="resultsTable">'
-                        +'<thead><th>Field</th><th>Value</th></thead></table>'
+                      $("#resultsDiv").append('<div class="table-responsive"><table class="table table-condensed table-hover" id="resultsTable">'
+                        +'<thead><th>Field</th><th>Value</th></thead></table></div>'
                         +'<p id="dictLink">For field descriptions, see the <a href=https://github.com/davidlago/mass-edu-data-challenge/raw/master/data/DATA%20DICTIONARY_2014.xlsx'
                         +' target="_blank">Data Dictionary</a>.</p>')
 
@@ -114,8 +114,8 @@ $(document).ready(function() {
 
                     } else { // No results found
 
-                      $("#resultsDiv").append('<table class="table table-condensed table-hover" id="resultsTable">'
-                        +'<thead><th><th>No results found.</th></thead></table>')
+                      $("#resultsDiv").append('<div class="table-responsive"><table class="table table-condensed table-hover" id="resultsTable">'
+                        +'<thead><th><th>No results found.</th></thead></table></div>')
 
                     }
 
