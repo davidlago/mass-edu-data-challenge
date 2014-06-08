@@ -58,7 +58,7 @@ $(document).ready(function() {
 
           // Add drop-down with realms
           $("#resultsDiv").append('<select class="form-control" id="realmsDropDown"'
-            + ' style="margin-bottom: 10px;"><option>Select information type...</option></select>')
+            + ' style="margin-bottom: 10px;"><option disabled>Select information type...</option></select>')
           for(realmid in realms)
             for(subrealmid in realms[realmid].subrealms) {
               if (realms[realmid].subrealms[subrealmid].org_type === "school" ||
@@ -79,10 +79,11 @@ $(document).ready(function() {
 
               $("#yearsDropDown").remove() // Clear years dropdown and results
               $("#resultsTable").remove()
+              $("#dictLink").remove()
 
               // Add drop-down with years
               $("#resultsDiv").append('<select class="form-control" id="yearsDropDown"'
-                + ' style="margin-bottom: 10px;"><option>Select year...</option></select>')
+                + ' style="margin-bottom: 10px;"><option disabled>Select year...</option></select>')
               for(yearid in years) {
                 $("#yearsDropDown").append('<option value='+years[yearid]+'>'+years[yearid]+'</option>')
               }
@@ -97,20 +98,23 @@ $(document).ready(function() {
                     + "&year=" + selYear, function(school) {
 
                     $("#resultsTable").remove() // Clear results
+                    $("#dictLink").remove()
 
                     if (school[0] != null) { // Results found!
 
                       var resultEntry = school[0][selRealm][0]
 
-                      $("#resultsDiv").append('<table class="table table-condensed" id="resultsTable">'
-                        +'<thead><th>Field</th><th>Value</th></thead></table>')
+                      $("#resultsDiv").append('<table class="table table-condensed table-hover" id="resultsTable">'
+                        +'<thead><th>Field</th><th>Value</th></thead></table>'
+                        +'<p id="dictLink">For field descriptions, see the <a href=https://github.com/davidlago/mass-edu-data-challenge/raw/master/data/DATA%20DICTIONARY_2014.xlsx'
+                        +' target="_blank">Data Dictionary</a>.</p>')
 
                       for(resultid in resultEntry)
                         $("#resultsTable").append('<tr><td>'+resultid+'</td><td>'+resultEntry[resultid]+'</td></tr>')
 
                     } else { // No results found
 
-                      $("#resultsDiv").append('<table class="table table-condensed" id="resultsTable">'
+                      $("#resultsDiv").append('<table class="table table-condensed table-hover" id="resultsTable">'
                         +'<thead><th><th>No results found.</th></thead></table>')
 
                     }
