@@ -72,23 +72,34 @@ $(document).ready(function() {
           // Listen for realm selection
           $("#realmsDropDown").change(function(a) {
 
-            // Query the school
-            $.getJSON( api_url + "schools/" + datum.valueKey + "?realm=" + $(this).val() , function(school) {
+            // Query the years
+            $.getJSON( api_url + "years.json", function(years) {
 
-                $("#rawResults").remove() // Clear results
-                $("#resultsDiv").append('<p id="rawResults">'+JSON.stringify(school)+'</p>')
+              // Add drop-down with years
+              $("#resultsDiv").append('<select class="form-control" id="yearsDropDown"'
+                + ' style="margin-bottom: 10px;"><option>Select year...</option></select>')
+              for(yearid in years) {
+                $("#yearsDropDown").append('<option value='+years[yearid]+'>'+years[yearid]+'</option>')
+              }
+           
+              // Listen for year selection
+              $("#yearsDropDown").change(function(a) {
+                // Query the school
+                $.getJSON( api_url + "schools/" + datum.valueKey + "?realm=" + $(this).val() , function(school) {
 
-            }); // Query the school
+                    $("#rawResults").remove() // Clear results
+                    $("#resultsDiv").append('<p id="rawResults">'+JSON.stringify(school)+'</p>')
+
+                }); // Query the school
+
+              });
+
+            });
 
           });
 
-
-
-
       }); // Query the realms
 			
-      
-
     });
 
   });
