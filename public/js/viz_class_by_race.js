@@ -54,21 +54,23 @@ var viz_class_by_race = function(container, school, viz, api_url) {
       var w = 1000 - m[1] - m[3]; // width
       var h = 400 - m[0] - m[2]; // height
       
-      // Log in the console the arrays we are about to plot
+      // Calculate max for y-axis range
       var data = AFRAME
-      console.log(YEARS)
-      console.log(AFRAME)
-      console.log(ASIAN)
-      console.log(HISPANIC)
-      console.log(WHITE)
-      console.log(NATAME)
-      console.log(NAT_HPI)
-      console.log(MULTI)
+
+      var combined = AFRAME.concat(ASIAN)
+      .concat(HISPANIC)
+      .concat(WHITE)
+      .concat(NATAME)
+      .concat(NAT_HPI)
+      .concat(MULTI)
+
+      var max = Math.max.apply(null, combined)
+
 
       // X scale will fit all values from data[] within pixels 0-w
-      var x = d3.scale.linear().domain([0, data.length]).range([0, w]);
+      var x = d3.scale.linear().domain([0, data.length-1]).range([0, w]);
       // Y scale will fit values from 0-10 within pixels h-0 (Note the inverted domain for the y-scale: bigger is up!)
-      var y = d3.scale.linear().domain([0, 100]).range([h, 0]);
+      var y = d3.scale.linear().domain([0, max]).range([h, 0]);
         // automatically determining max range can work something like this
         // var y = d3.scale.linear().domain([0, d3.max(data)]).range([h, 0]);
 
@@ -108,7 +110,13 @@ var viz_class_by_race = function(container, school, viz, api_url) {
         
         // Add the line by appending an svg:path element with the data line we created above
         // do this AFTER the axes above so that the line is above the tick-lines
-        graph.append("svg:path").attr("d", line(data));
+        graph.append("svg:path").attr("d", line(AFRAME));
+        graph.append("svg:path").attr("d", line(ASIAN));
+        graph.append("svg:path").attr("d", line(HISPANIC));
+        graph.append("svg:path").attr("d", line(WHITE));
+        graph.append("svg:path").attr("d", line(NATAME));
+        graph.append("svg:path").attr("d", line(NAT_HPI));
+        graph.append("svg:path").attr("d", line(MULTI));
 
 
   	});
