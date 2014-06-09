@@ -7,27 +7,23 @@ block content
     form.form-horizontal(role="form")
       div.form-group
         div.row(style="margin-bottom: 10px;")
-          div.col-xs-12.col-sm-3
           div.col-xs-12.col-sm-6
             h1 School Comparison
             p Enter the name of two schools in the box below to compare their data side by side:
-          div.col-xs-12.col-sm-3
+          div.col-xs-12.col-sm-6
         div.row
-          div.col-xs-12.col-sm-3
           div.col-xs-12.col-sm-6(id="schoolsTypeahead")          
             input.form-control.typeahead(id="inputSchool",placeholder="Loading school list..."
               ,type="text",style="margin-bottom:5px;",title="school1")
-          div.col-xs-12.col-sm-3
+          div.col-xs-12.col-sm-6
         div.row
-          div.col-xs-12.col-sm-3
           div.col-xs-12.col-sm-6(id="schoolsTypeahead2")          
             input.form-control.typeahead(id="inputSchool2",placeholder="Loading school list..."
               ,type="text",style="margin-bottom:5px;",title="school2")
-          div.col-xs-12.col-sm-3
+          div.col-xs-12.col-sm-6
         div.row
-          div.col-xs-12.col-sm-3
           div.col-xs-12.col-sm-6(id="resultsDiv")
-          div.col-xs-12.col-sm-3
+          div.col-xs-12.col-sm-6
 
   != js('application')
   != js('compare')
