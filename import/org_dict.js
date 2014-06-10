@@ -5,15 +5,7 @@ var async = require('async')
 var split = require('split')
 var title = require('./title_case')
 var fileutil = require('./fileutil')
-
-var org_code_fields = ['SCHOOL', 'DIST_CODE', 'ORG_CODE', 'SCHOOL_CODE', 'DIST_SCHOOL_CODE', 'DISTRICT_CODE', '"District Code"', 'org_code', 'Org_code']
-var org_name_fields = ['ORG_NAME', 'DISTRICT_NAME', 'DISTRICT', 'SCHOOL_NAME', 'WPI_ORG_NAME', 'SchoolName', '"District Name"', 'DistrictName', '"DISTRICT NAME"', 'DIST_NAME']
-
-var year_fields =  ['FY_CODE', 'REC_YEAR', 'ORG_FY', 'GRADUATING_YEAR', 'YEAR', 'SY', 'FY', 'Year', 'adminyear']
-
-var find_field_index = function(fields, header) {
-  return _.indexOf(header,_.find(fields, function(f) { return _.indexOf(header, f) != -1 }))
-}
+var field_index = require('./field_index')
 
 var done = false
 function one_file(filename,callback) {
@@ -36,9 +28,9 @@ function one_file(filename,callback) {
       if (lines == 0) {
         header = line.split(separator)
         //console.log(header)
-        org_code_index = find_field_index(org_code_fields, header)
-        org_name_index = find_field_index(org_name_fields, header)
-        year_index = find_field_index(year_fields, header)
+        org_code_index = field_index.org_code(header)
+        org_name_index = field_index.org_name(header)
+        year_index = field_index.year(header)
         console.log(filename)
         //console.log(org_code_index, org_name_index)
         if ((org_code_index == -1) || (org_name_index == -1)) {
