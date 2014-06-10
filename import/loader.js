@@ -5,13 +5,8 @@ var get_name_dict = require('./get_name_dict')
 
 var name_dict = get_name_dict.name_dict()
 
-//var org_code_fields = ['SCHOOL', 'DIST_CODE', 'ORG_CODE', 'SCHOOL_CODE', 'DIST_SCHOOL_CODE', 'DISTRICT_CODE']
-
-//var org_name_fields = ['ORG_NAME', 'DISTRICT_NAME', 'DISTRICT', 'SCHOOL_NAME', 'WPI_ORG_NAME']
-
-
 function get_org_code(el) {
-  var org_code = el.SCHOOL || el.SCHOOL_CODE || el.DIST_CODE || el.ORG_CODE ||  el.DIST_SCHOOL_CODE ||(el.DISTRICT_CODE+"0000")
+  var org_code = el.SCHOOL || el.SCHOOL_CODE || el.DIST_CODE || el.ORG_CODE || el.org_code || el.Org_code || el.DIST_SCHOOL_CODE || el["Org Code"] || el["District Code"] ||(el.DISTRICT_CODE+"0000")
   return org_code
 }
 
@@ -37,7 +32,7 @@ exports.loadJSON = function (options) {
   var fileroot = options.name.split(".csv")[0]
   // Grab year
   var fileroot_year = fileroot.replace(/[^0-9]*([12][90][8901][0-9])[^0-9]*/,"$1")
-  console.log(fileroot_year)
+  //console.log(fileroot_year)
   // Edit out years
   var fileroot_yearless = fileroot.replace(/[12][90][8901][0-9]/g,"")
   // Edit out types of records (it's encoded in ORG_CODE)
@@ -52,13 +47,13 @@ exports.loadJSON = function (options) {
   fileroot = fileroot.replace(/__/g,"_")
   fileroot = fileroot.replace(/_$/,"")
   
-  console.log("fileroot:",fileroot)
+  //console.log("fileroot:",fileroot)
 
 	var folder = options.path.split(/[\/\\]data[\/\\]/)[1]
-  console.log("folder/realm:", folder)
+  //console.log("folder/realm:", folder)
 	
   // build insert records
-  console.log("obj length", obj.length)
+  //console.log("obj length", obj.length)
   //console.log(obj[0])
   var first = true
 
@@ -82,7 +77,7 @@ exports.loadJSON = function (options) {
     to_insert[fileroot] = records
     return to_insert
   })
-  console.log("obj out size:",intObj.length)
+  //console.log("obj out size:",intObj.length)
 
 	// Merge with previous state document
 	intObj = _.union(intObj,options.state)

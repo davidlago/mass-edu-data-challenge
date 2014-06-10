@@ -1,7 +1,7 @@
 var _ = require("underscore")
 
-var org_code_fields = ['SCHOOL', 'DIST_CODE', 'ORG_CODE', 'SCHOOL_CODE', 'DIST_SCHOOL_CODE', 'DISTRICT_CODE', '"District Code"', 'org_code', 'Org_code']
-var org_name_fields = ['ORG_NAME', 'DISTRICT_NAME', 'DISTRICT', 'SCHOOL_NAME', 'WPI_ORG_NAME', 'SchoolName', '"District Name"', 'DistrictName', '"DISTRICT NAME"', 'DIST_NAME']
+var org_code_fields = ['SCHOOL', 'DIST_CODE', 'ORG_CODE', 'SCHOOL_CODE', 'DIST_SCHOOL_CODE', 'DISTRICT_CODE', '"District Code"', 'District Code', 'org_code', 'Org_code', 'Org Code']
+var org_name_fields = ['ORG_NAME', 'DISTRICT_NAME', 'DISTRICT', 'SCHOOL_NAME', 'WPI_ORG_NAME', 'SchoolName', '"District Name"', 'DistrictName', '"DISTRICT NAME"', 'DISTRICT NAME', 'DIST_NAME']
 
 var year_fields =  ['FY_CODE', 'REC_YEAR', 'ORG_FY', 'GRADUATING_YEAR', 'YEAR', 'SY', 'FY', 'Year', 'adminyear']
 
