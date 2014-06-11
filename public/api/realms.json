@@ -118,6 +118,16 @@
         "description": "Enrollment by grade"
       },
       {
+        "name": "enrollment_by_race_gender",
+        "org_type": "both",
+        "description": "Enrollment by race and gender"
+      },
+      {
+        "name": "enrollment_by_selected_populations",
+        "org_type": "both",
+        "description": "Enrollment by selected populations"
+      },
+      {
         "name": "graduation_rate_report",
         "org_type": "district",
         "description": "Graduation rate report"
@@ -141,6 +151,16 @@
         "name": "plans_of_high_school_graduates",
         "org_type": "both",
         "description": "Plans of high school graduates"
-      }
+      },
+      {
+        "name": "school_attending_children",
+        "org_type": "state",
+        "description": "School attending children"
+      },
+      {
+        "name": "technology_report",
+        "org_type": "both",
+        "description": "Technology report"
+      }   
     ]
 }]
