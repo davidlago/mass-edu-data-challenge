@@ -142,11 +142,11 @@ $(document).ready(function() {
                             for(resultid in resultEntry1)
                               $("#resultsTable"+idEntry).append('<tr><td>'+resultid+'</td><td>'+resultEntry1[resultid]
                                 +'</td><td>'+resultEntry2[resultid]+'</td></tr>')
-
-                            $("#resultsDiv").append('<p id="dictLink">For field descriptions, see the <a href=https://github.com/davidlago/mass-edu-data-challenge/raw/master/data/DATA%20DICTIONARY_2014.xlsx'
-                              +' target="_blank">Data Dictionary</a>.</p>')
-                          
+           
                           }
+
+                          $("#resultsDiv").append('<p id="dictLink">For field descriptions, see the <a href=https://github.com/davidlago/mass-edu-data-challenge/raw/master/data/DATA%20DICTIONARY_2014.xlsx'
+                              +' target="_blank">Data Dictionary</a>.</p>')
 
                         } else { // No results found
 
@@ -154,6 +154,8 @@ $(document).ready(function() {
                             +'<thead><th>One or both of the schools are missing data for the selected realm/year.</th></thead></table></div>')
 
                         }
+
+
 
                     }); // Query the school2
                   }); // Query the school1
