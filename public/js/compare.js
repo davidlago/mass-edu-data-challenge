@@ -101,7 +101,7 @@ $(document).ready(function() {
               $.getJSON( api_url + "years.json", function(years) {
 
                 $("#yearsDropDown").remove() // Clear years dropdown and results
-                $("#resultsTable").remove()
+                $("[id^='resultsTable']").remove()
                 $("#dictLink").remove()
 
                 // Add drop-down with years
@@ -123,22 +123,30 @@ $(document).ready(function() {
                     $.getJSON( api_url + "schools/" + schoolSelected2 + "?realm=" + selRealm
                         + "&year=" + selYear, function(school2) {
 
-                        $("#resultsTable").remove() // Clear results
+                        $("[id^='resultsTable']").remove() // Clear results
                         $("#dictLink").remove()
 
                         if (school1[0] != null && school2[0] != null) { // Results found!
 
-                          var resultEntry1 = school1[0][selRealm][0]
-                          var resultEntry2 = school2[0][selRealm][0]
+                          var resultEntries1 = school1[0][selRealm]
+                          var resultEntries2 = school2[0][selRealm]
 
-                          $("#resultsDiv").append('<div class="table-responsive"><table class="table table-condensed table-hover" id="resultsTable">'
-                            +'<thead><th>Field</th><th>School 1</th><th>School 2</th></thead></table></div>'
-                            +'<p id="dictLink">For field descriptions, see the <a href=https://github.com/davidlago/mass-edu-data-challenge/raw/master/data/DATA%20DICTIONARY_2014.xlsx'
-                            +' target="_blank">Data Dictionary</a>.</p>')
+                          for (idEntry in resultEntries1) {
+                            var resultEntry1 = resultEntries1[idEntry]
+                            var resultEntry2 = resultEntries2[idEntry]
 
-                          for(resultid in resultEntry1)
-                            $("#resultsTable").append('<tr><td>'+resultid+'</td><td>'+resultEntry1[resultid]
-                              +'</td><td>'+resultEntry2[resultid]+'</td></tr>')
+
+                            $("#resultsDiv").append('<div class="table-responsive"><table class="table table-condensed table-hover" id="resultsTable'+idEntry+'">'
+                              +'<thead><th>Field</th><th>School 1</th><th>School 2</th></thead></table></div>')
+
+                            for(resultid in resultEntry1)
+                              $("#resultsTable"+idEntry).append('<tr><td>'+resultid+'</td><td>'+resultEntry1[resultid]
+                                +'</td><td>'+resultEntry2[resultid]+'</td></tr>')
+
+                            $("#resultsDiv").append('<p id="dictLink">For field descriptions, see the <a href=https://github.com/davidlago/mass-edu-data-challenge/raw/master/data/DATA%20DICTIONARY_2014.xlsx'
+                              +' target="_blank">Data Dictionary</a>.</p>')
+                          
+                          }
 
                         } else { // No results found
 

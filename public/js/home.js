@@ -78,7 +78,7 @@ $(document).ready(function() {
             $.getJSON( api_url + "years.json", function(years) {
 
               $("#yearsDropDown").remove() // Clear years dropdown and results
-              $("#resultsTable").remove()
+              $("[id^='resultsTable']").remove()
               $("#dictLink").remove()
 
               // Add drop-down with years
@@ -97,20 +97,24 @@ $(document).ready(function() {
                 $.getJSON( api_url + "schools/" + datum.valueKey + "?realm=" + selRealm
                     + "&year=" + selYear, function(school) {
 
-                    $("#resultsTable").remove() // Clear results
+                    $("[id^='resultsTable']").remove() // Clear results
                     $("#dictLink").remove()
 
                     if (school[0] != null) { // Results found!
 
-                      var resultEntry = school[0][selRealm][0]
+                      var resultEntries = school[0][selRealm]
+                      for (idEntry in resultEntries) {
+                        var resultEntry = resultEntries[idEntry]
 
-                      $("#resultsDiv").append('<div class="table-responsive"><table class="table table-condensed table-hover" id="resultsTable">'
-                        +'<thead><th>Field</th><th>Value</th></thead></table></div>'
-                        +'<p id="dictLink">For field descriptions, see the <a href=https://github.com/davidlago/mass-edu-data-challenge/raw/master/data/DATA%20DICTIONARY_2014.xlsx'
-                        +' target="_blank">Data Dictionary</a>.</p>')
+                        $("#resultsDiv").append('<div class="table-responsive"><table class="table table-condensed table-hover" id="resultsTable'+idEntry+'">'
+                          +'<thead><th>Field</th><th>Value</th></thead></table></div>')
 
-                      for(resultid in resultEntry)
-                        $("#resultsTable").append('<tr><td>'+resultid+'</td><td>'+resultEntry[resultid]+'</td></tr>')
+                        for(resultid in resultEntry)
+                          $("#resultsTable"+idEntry).append('<tr><td>'+resultid+'</td><td>'+resultEntry[resultid]+'</td></tr>')
+                      }
+
+                      $("#resultsDiv").append('<p id="dictLink">For field descriptions, see the <a href=https://github.com/davidlago/mass-edu-data-challenge/raw/master/data/DATA%20DICTIONARY_2014.xlsx'
+                          +' target="_blank">Data Dictionary</a>.</p>')
 
                     } else { // No results found
 
