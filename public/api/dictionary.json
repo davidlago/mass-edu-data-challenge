@@ -2,7 +2,9 @@
 
     "FY_CODE": "School Years",
     "ORG_CODE": "Eight digit ESE School/District Code",
+    "DISTRICT_CODE": "District Code",
     "ORG_NAME": "State/School/District/Charter School/Collaborative Name",
+    "SCHOOL_NAME": "School Name",
     "ESTATUS": "English Language Arts Accountability Status",
     "MSTATUS": "Math Accountability Status",
     "EAAYP": "Achieved AYP in English Language Arts in the aggregate",
@@ -33,6 +35,7 @@
     "MMM_AYP_MTH": "ELL progress toward and attainment of Math proficiency",
     "REC_YEAR": "Reported Year student took test",
     "SCHOOL": "Eight digit ESE School Code",
+    "SCHOOL_CODE": "Eight digit ESE School Code",
     "AP_STU_GROUP_CODE": "AP Student groups by code",
     "LABEL_STU": "AP Student groups include race, gender, special education status, low income status, high needs, and Limited English Proficient and all students",
     "AP_SUBJ_CODE": "AP Label by Subject Code",
@@ -71,6 +74,7 @@
 
     "SY": "School Years",
     "DISTRICT": "District Name",
+    "DIST_NAME": "District Name",
     "ACTUAL NET SCHOOL SPENDING": "Sum of the required contribution and the aid equals the “net school spending requirement.",
     "FOUNDATION BUDGET": "Adequate spending level (foundation budget) is based upon the demographics, grade levels and programs of its pupils",
     "PERCENT ABOVE": "Percent above adequate spending level",

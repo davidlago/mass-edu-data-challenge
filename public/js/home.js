@@ -1,6 +1,6 @@
 $(document).ready(function() {
-
-	var substringMatcher = function(strs) {
+	
+  var substringMatcher = function(strs) {
 	  return function findMatches(q, cb) {
 	    var matches, substringRegex;
 	 	
@@ -23,6 +23,12 @@ $(document).ready(function() {
 
   var api_url = "http://massedu.info/api/"
 
+  var dictionary = {};
+  $.getJSON( api_url + "dictionary.json", function(dict) {
+    dictionary = dict;
+    console.log('done!')
+  });
+
 	// Disable input until typeahead loads
 	$('#inputSchool').attr('disabled',true);
 
@@ -40,6 +46,7 @@ $(document).ready(function() {
 			  source: substringMatcher(schools)
 	    	}
 	    );
+
 
 		$('#inputSchool').removeAttr('disabled').css('background','white').attr('placeholder','Enter school name...')
 		$('.tt-hint').removeAttr('disabled')
@@ -91,6 +98,9 @@ $(document).ready(function() {
               // Listen for year selection
               $("#yearsDropDown").change(function(a) {
 
+
+                console.log(dictionary);
+
                 var selYear = $(this).val()
 
                 // Query the school
@@ -109,8 +119,11 @@ $(document).ready(function() {
                         $("#resultsDiv").append('<div class="table-responsive"><table class="table table-condensed table-hover" id="resultsTable'+idEntry+'">'
                           +'<thead><th>Field</th><th>Value</th></thead></table></div>')
 
-                        for(resultid in resultEntry)
-                          $("#resultsTable"+idEntry).append('<tr><td>'+resultid+'</td><td>'+resultEntry[resultid]+'</td></tr>')
+                        for(resultid in resultEntry) {
+                          $("#resultsTable"+idEntry).append('<tr><td><div id="'+resultid+'" data-toggle="tooltip" data-placement="top" title="'+dictionary[resultid]+'">'+resultid+'</div></td><td>'+resultEntry[resultid]+'</td></tr>')
+                          $('#'+resultid).tooltip();
+                        }
+                          
                       }
 
                       $("#resultsDiv").append('<p id="dictLink">For field descriptions, see the <a href=https://github.com/davidlago/mass-edu-data-challenge/raw/master/data/DATA%20DICTIONARY_2014.xlsx'
