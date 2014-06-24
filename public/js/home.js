@@ -126,8 +126,7 @@ $(document).ready(function() {
                           
                       }
 
-                      $("#resultsDiv").append('<p id="dictLink">For field descriptions, see the <a href=https://github.com/davidlago/mass-edu-data-challenge/raw/master/data/DATA%20DICTIONARY_2014.xlsx'
-                          +' target="_blank">Data Dictionary</a>.</p>')
+                      $("#resultsDiv").append('<p id="dictLink"><em>For field descriptions, hover over the field names.</em></p>')
 
                     } else { // No results found
 

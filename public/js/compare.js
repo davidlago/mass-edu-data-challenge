@@ -23,6 +23,12 @@ $(document).ready(function() {
 
   var api_url = "http://massedu.info/api/"
 
+  var dictionary = {};
+  $.getJSON( api_url + "dictionary.json", function(dict) {
+    dictionary = dict;
+    console.log('done!')
+  });
+
 	// Disable input until typeahead loads
 	$('#inputSchool').attr('disabled',true);
   $('#inputSchool2').attr('disabled',true);
@@ -139,14 +145,15 @@ $(document).ready(function() {
                             $("#resultsDiv").append('<div class="table-responsive"><table class="table table-condensed table-hover" id="resultsTable'+idEntry+'">'
                               +'<thead><th>Field</th><th>School 1</th><th>School 2</th></thead></table></div>')
 
-                            for(resultid in resultEntry1)
-                              $("#resultsTable"+idEntry).append('<tr><td>'+resultid+'</td><td>'+resultEntry1[resultid]
-                                +'</td><td>'+resultEntry2[resultid]+'</td></tr>')
+                            for(resultid in resultEntry1) {
+                              $("#resultsTable"+idEntry).append('<tr><td><div id="'+resultid+'" data-toggle="tooltip" data-placement="top" title="'+dictionary[resultid]+'">'+resultid+'</div></td><td>'+resultEntry1[resultid]
+                                +'</td><td>'+resultEntry2[resultid]+'</td></tr>');
+                              $('#'+resultid).tooltip();
+                            }
            
                           }
 
-                          $("#resultsDiv").append('<p id="dictLink">For field descriptions, see the <a href=https://github.com/davidlago/mass-edu-data-challenge/raw/master/data/DATA%20DICTIONARY_2014.xlsx'
-                              +' target="_blank">Data Dictionary</a>.</p>')
+                          $("#resultsDiv").append('<p id="dictLink"><em>For field descriptions, hover over the field names.</em></p>')
 
                         } else { // No results found
 
