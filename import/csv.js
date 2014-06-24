@@ -18,7 +18,7 @@ exports.parse = function(line) {
         if (c != ',') {
           chunk += c
         } else {
-          if (chunk == chunk*1 && chunk.length) {
+          if (chunk === chunk*1 && chunk.length) {
             chopped.push(chunk*1)
           } else {
             chopped.push(chunk)
@@ -28,7 +28,7 @@ exports.parse = function(line) {
       }
     }
   }
-  if (chunk == chunk*1 && chunk.length) {
+  if (chunk === chunk*1 && chunk.length) {
     chopped.push(chunk*1)
   } else {
     chopped.push(chunk)
