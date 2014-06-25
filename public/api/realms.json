@@ -79,7 +79,19 @@
         "name": "per_pupil_expenditure_report",
         "org_type": "district",
         "description": "Expenditure per pupil"
+      },
+      {
+        "name": "chapter_70_foundation_budget",
+        "org_type": "district",
+        "description": "Ch. 70 foundation budget"
+      },
+      {
+        "name": "in_and_out-of-district_fte_average_membership",
+        "org_type": "district",
+        "description": "In and out of district fte average membership"
       }
+
+
     ]
 },
 {
@@ -89,7 +101,22 @@
       {
         "name": "_Educator_Evaluation_Data",
         "org_type": "district",
-        "description": "Educator evaluation"
+        "description": "MCAS Educator evaluation"
+      },
+      {
+        "name": "item",
+        "org_type": "district",
+        "description": "MCAS item"
+      },
+      {
+        "name": "participation",
+        "org_type": "district",
+        "description": "MCAS participation"
+      },
+      {
+        "name": "performance",
+        "org_type": "district",
+        "description": "MCAS performance"
       }
     ]
 },
@@ -161,6 +188,37 @@
         "name": "technology_report",
         "org_type": "both",
         "description": "Technology report"
-      }   
+      },
+      {
+        "name": "grades_offered",
+        "org_type": "district",
+        "description": "Grades offered"
+      },
+      {
+        "name": "grades_offered_type",
+        "org_type": "district",
+        "description": "Type of grades offered"
+      },
+      {
+        "name": "graduates_attending_college_research_file",
+        "org_type": "district",
+        "description": "Graduates attending college"
+      },
+      {
+        "name": "special_education_report_compliance",
+        "org_type": "district",
+        "description": "Special education report compliance"
+      },
+      {
+        "name": "special_education_report_performance",
+        "org_type": "district",
+        "description": "Special education report performance"
+      },
+      {
+        "name": "teacher_salaries",
+        "org_type": "district",
+        "description": "Teacher salaries"
+      }
+      
     ]
 }]
