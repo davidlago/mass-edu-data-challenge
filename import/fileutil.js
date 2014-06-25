@@ -113,21 +113,21 @@ exports.line_parse = function(lines) {
   }
   
   if (line_0.length != line_1.length) {
-    console.log(lines)
-    console.log(line_0,line_1)
+    //console.log(lines)
+    //console.log(line_0,line_1)
     throw new Error("Inconsistant number of fields")
   }
   if (line_0.length != line_2.length) {
-    console.log(lines)
-    console.log(line_0,line_2)
+    //console.log(lines)
+    //console.log(line_0,line_2)
     throw new Error("Inconsistant number of fields")
   }
   if (line_0[line_0.length-1].length == 0) {
     if (line_1[line_1.length-1].length == 0) {
       if (line_2[line_2.length-1].length == 0) {
-        console.log(line_0)
-        console.log(line_1)
-        console.log(line_2)
+        //console.log(line_0)
+        //console.log(line_1)
+        //console.log(line_2)
         return line_3 // TODO fail!
         //throw new Error("Last field name zero length")
         

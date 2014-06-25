@@ -18,6 +18,11 @@ var walk_path = path.normalize(__dirname+"/"+"../data")
 var do_not_process = ["tools"]
 // var do_not_process ["tools", "educators_teachers", "financial", "mcas", "students"]
 function one_file(filename, callback) {
+  //if (filename.indexOf("grades_offered") == -1){
+  //  callback()
+  //  return
+  //}
+  console.log(filename)
   var separator = fileutil.separator(filename)
   var field_splitter = csv.parse
   if (separator == '\t') {
@@ -75,6 +80,7 @@ function one_file(filename, callback) {
       if (size_of_inserts != 0) {
         collection.insert(inserts, {w: 1}, function(err, records){
 		      if (records) {
+		       console.log(err)
            console.log(records.length, "records saved")
           } else {
             console.log("0 records saved")

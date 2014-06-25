@@ -41,7 +41,7 @@ describe('import', function(){
   describe('headers', function(){
     it('parse all', function(done) {
       async.eachSeries(files, function(filename, callback) {
-        console.log(filename)
+        //console.log(filename)
         fileutil.header_parse(filename, function(header_info) {
           //console.log(header_info)
           assert(2 <= header_info.fields.length)
