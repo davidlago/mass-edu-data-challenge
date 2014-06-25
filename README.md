@@ -69,5 +69,69 @@ Get only teacher information for 2014 for district `02260000`:
 http://massedu.info/api/districts/02260000?year=2014&realm=educators_teachers
 ````
 
+### Dictionaries
+
+There are a collection of static JSON files that can be used to assist in building an application around the data:
+
+#### `schools.json`
+List of schools, and the districts they belong to. Available at `http://massedu.info/api/schools.json`. Sample element:
+
+````json
+{
+    "org_code":  "00010405",
+    "org_name":  "Frolio Middle School",
+    "dist_code": "00010000",
+    "dist_name": "Abington"
+}
+```
+
+#### `realms.json`
+List of available realms of data for the schools and/or districts. Available at `http://massedu.info/api/realms.json`. The field `org_type` indicates if it pertains to a `school`, a `district` or `both`. Sample element:
+
+````json
+{
+    "realm": "assessment",
+    "description": "Assessment",
+    "subrealms": [
+      {
+        "name": "amao",
+        "org_type": "district",
+        "description": "AMAO"
+      },
+      {
+        "name": "ap_participation",
+        "org_type": "district",
+        "description": "AP Participation"
+      },
+      {
+        "name": "ap_performance",
+        "org_type": "district",
+        "description": "AP Performance"
+      },
+      {
+        "name": "sat_performance_report",
+        "org_type": "district",
+        "description": "SAT Performance"
+      }
+    ]
+}
+```
+
+#### `years.json`
+List of available years in the dataset (array of strings). Available at `http://massedu.info/api/years.json`.
+
+#### `dictionary.json`
+List of fields and their descriptions, as extracted from the dataset's dictionary. Available at `http://massedu.info/api/dictionary.json`. Sample element:
+
+````json
+{
+
+    "FY_CODE": "School Years",
+    "ORG_CODE": "Eight digit ESE School/District Code",
+    "DISTRICT_CODE": "District Code",
+    ...
+}
+```
+
 ## Website
 Using the API, we are starting to build a website at http://massedu.info.
