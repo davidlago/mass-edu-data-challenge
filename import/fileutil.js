@@ -4,6 +4,7 @@ var walk = require('walk')
 var _ = require("underscore")
 var path = require("path")
 var csv = require("./csv")
+var field_index = require('./field_index')
 
 var walk_options = {
   followLinks: false
@@ -150,4 +151,53 @@ exports.header_parse = function(filename, callback) {
   })
 }
 
+
+// Read file, assume csv or tsv with some headers
+exports.load_file = function(filename, callback) {
+  console.log(filename)
+  var separator = exports.separator(filename)
+  var field_splitter = csv.parse
+  if (separator == '\t') {
+    field_splitter = exports.tab_splitter
+  } 
+  var lines = 0
+  var got_header = false
+  var header
+  var org_code_index
+  var org_name_index
+  var year_index
+  var jsonObj = []
+  fs.createReadStream(filename)
+    .pipe(split())
+    .on('data', function (line) {
+      if (!got_header) {
+        header = field_splitter(line)
+        //console.log(header)
+        org_code_index = field_index.org_code(header)
+        org_name_index = field_index.org_name(header)
+        year_index = field_index.year(header)
+        if (org_code_index != -1) {
+          got_header = true
+        } else {
+          // TODO lookup school name and insert by school name
+          if (org_name_index != -1) {
+            console.log("header", header)
+          }
+        }
+        if (lines == 20) {
+          console.log("Read 20 lines without finding header")
+          console.log(filename)
+          console.log("data",header)
+        }
+      } else {
+        var fields = field_splitter(line)
+        jsonObj.push(_.object(header,fields))
+      }
+      lines = lines + 1
+    })
+    .on('end', function() {
+      callback(jsonObj)
+    })
+  // end fs.createReadStream
+}
 
