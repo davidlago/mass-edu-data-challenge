@@ -123,19 +123,19 @@ $(document).ready(function() {
                   var selYear = $(this).val()
 
                   // Query the school1
-                  $.getJSON( api_url + "schools/" + schoolSelected1 + "?realm=" + selRealm
-                      + "&year=" + selYear, function(school1) {
+                  $.getJSON( api_url + "schools/" + schoolSelected1 + "?subrealm=" + selRealm
+                      + "&year=" + selYear, function(schools1) {
 
-                    $.getJSON( api_url + "schools/" + schoolSelected2 + "?realm=" + selRealm
-                        + "&year=" + selYear, function(school2) {
+                    $.getJSON( api_url + "schools/" + schoolSelected2 + "?subrealm=" + selRealm
+                        + "&year=" + selYear, function(schools2) {
 
                         $("[id^='resultsTable']").remove() // Clear results
                         $("#dictLink").remove()
 
-                        if (school1[0] != null && school2[0] != null) { // Results found!
+                        if (schools1[0] != null && schools2[0] != null) { // Results found!
 
-                          var resultEntries1 = school1[0][selRealm]
-                          var resultEntries2 = school2[0][selRealm]
+                          var resultEntries1 = schools1
+                          var resultEntries2 = schools2
 
                           for (idEntry in resultEntries1) {
                             var resultEntry1 = resultEntries1[idEntry]

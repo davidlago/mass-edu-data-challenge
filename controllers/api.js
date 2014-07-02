@@ -44,31 +44,31 @@ exports.getOrgCode = function(req, res) {
     MongoClient.connect(dburl, function(err, db) {
       if(err) { return console.dir(err); }
 
-      var collection = db.collection('org_code')
+      var collection = db.collection('org_code_flat')
 
       var realm = req.query.realm
+      var subrealm = req.query.subrealm
       var year = req.query.year
       var query = {}
       query.org_code = req.params.org_code
 
       if(realm) {
-        var or1 = {}
-        or1[realm] = {$exists: true}
-        var or2 = {}
-        or2.realm = realm
-        query.$or = [or1,or2]
+        query.folder = realm
+      }
+      if(subrealm) {
+        query.filename = subrealm
       }
       if(year) {
-         query.year = year
+        query.year = year
       }
 
-      collection.find(query).toArray(function(err, document) {
+      collection.find(query,{_id: 0}).toArray(function(err, document) {
         if(err) // General error
           res.send(500)
         else if (!document) // Not found
           res.send(404)
-          else // Everything OK, send result
-            res.json(document)
+        else // Everything OK, send result
+          res.json(document)
         db.close();
       });
     });
@@ -79,23 +79,8 @@ exports.getOrgCode = function(req, res) {
 
 exports.getSchools = function(req, res) {
 
-    MongoClient.connect(dburl, function(err, db) {
-      if(err) { return console.dir(err); }
+  res.sendfile('public/api/schools.json');
 
-      var collection = db.collection('org_code')
-
-      // Peform a simple group by on an empty collection
-        collection.group(['org_code','org_name', 'dist_code', 'dist_name'], {'org_code':{ $regex: '^((?!\\d{4}0000).)*$', $options: 'g' }}, {}, "function (obj, prev) {}", function(err, results) {
-        if(err) // General error
-          res.send(500)
-        else if (!results) // Not found
-          res.send(404)
-          else // Everything OK, send result
-            res.json(results)
-        db.close();
-      });
-
-    });
 };
 
 // Get list of districts
@@ -103,23 +88,7 @@ exports.getSchools = function(req, res) {
 
 exports.getDistricts = function(req, res) {
 
-    MongoClient.connect(dburl, function(err, db) {
-      if(err) { return console.dir(err); }
-
-      var collection = db.collection('org_code')
-
-      // Peform a simple group by on an empty collection
-        collection.group(['org_code','org_name'], {'org_code':{ $regex: '\\d{4}0{4}', $options: 'g' }}, {}, "function (obj, prev) {}", function(err, results) {
-        if(err) // General error
-          res.send(500)
-        else if (!results) // Not found
-          res.send(404)
-          else // Everything OK, send result
-            res.json(results)
-        db.close();
-      });
-
-    });
+  res.sendfile('public/api/districts.json');
 };
 
 

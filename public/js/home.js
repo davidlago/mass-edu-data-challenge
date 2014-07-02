@@ -104,15 +104,15 @@ $(document).ready(function() {
                 var selYear = $(this).val()
 
                 // Query the school
-                $.getJSON( api_url + "schools/" + datum.valueKey + "?realm=" + selRealm
-                    + "&year=" + selYear, function(school) {
+                $.getJSON( api_url + "schools/" + datum.valueKey + "?subrealm=" + selRealm
+                    + "&year=" + selYear, function(schools) {
 
                     $("[id^='resultsTable']").remove() // Clear results
                     $("#dictLink").remove()
 
-                    if (school[0] != null) { // Results found!
+                    if (schools[0] != null) { // Results found!
 
-                      var resultEntries = school[0][selRealm]
+                      var resultEntries = schools
                       for (idEntry in resultEntries) {
                         var resultEntry = resultEntries[idEntry]
 
