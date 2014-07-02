@@ -15,6 +15,12 @@ node --max-old-space-size=20480 app.js
 
 Where the `--max-old-space-size` variable is the memory alloation in megabytes. This process might not complete successfully with the default memory settings. We recommend trying this with the maximum memory your system can afford.
 
+We also recommend setting the following index, which helps in particular the querying method for our API (other uses might require different indexes):
+
+```
+db.org_code_flat.ensureIndex({org_code: 1, subrealm: 1, year: 1})
+```
+
 This script creates a `massedu` database, and inside of it a `org_code_flat` collection, with all the entries of all the csv files as documents. The general format of a document in this collection is as follows:
 
 ```json
