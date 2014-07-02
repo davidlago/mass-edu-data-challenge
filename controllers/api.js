@@ -86,7 +86,6 @@ exports.getFields = function(req, res) {
 
       var field = req.params.field;
       var query = {}
-
       var and1 = {}
       and1[field] = {"$exists": true};
       var and2 = {}
@@ -96,6 +95,16 @@ exports.getFields = function(req, res) {
       var year = req.query.year;
       if (year) {
         query.year = year;
+      }
+
+      var orgtype = req.query.orgtype;
+      if (orgtype === "school") {
+        query.org_code = {}
+        query.org_code.$regex = /^((?!\d{4}0000).)*$/g;
+      }
+      if (orgtype === "district") {
+        query.org_code = {}
+        query.org_code.$regex = /\d{4}0000$/g;
       }
 
       var projections = {
