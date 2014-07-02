@@ -74,6 +74,50 @@ exports.getOrgCode = function(req, res) {
     });
 };
 
+// Gets all the entries for the specified field, with year and org_code
+// --------------------------------------------------------------------
+
+exports.getFields = function(req, res) {
+
+    MongoClient.connect(dburl, function(err, db) {
+      if(err) { return console.dir(err); }
+
+      var collection = db.collection('org_code_flat')
+
+      var field = req.params.field;
+      var query = {}
+
+      var and1 = {}
+      and1[field] = {"$exists": true};
+      var and2 = {}
+      and2[field] = {"$ne": ""};
+      query.$and = [and1,and2];
+
+      var year = req.query.year;
+      if (year) {
+        query.year = year;
+      }
+
+      var projections = {
+        year: 1, org_code: 1, ATTR_PCT_ALL: 1, _id: 0
+      };
+
+      var options = {
+        "sort": [['year','asc'], ['org_code','asc']]
+      };
+
+      collection.find(query, projections, options).toArray(function(err, document) {
+        if(err) // General error
+          res.send(500)
+        else if (!document) // Not found
+          res.send(404)
+        else // Everything OK, send result
+          res.json(document)
+        db.close();
+      });
+    });
+};
+
 // Get list of schools
 // -------------------
 

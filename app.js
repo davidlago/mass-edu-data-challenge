@@ -142,6 +142,7 @@ app.get('/api/schools/:org_code', apiController.getOrgCode);
 app.get('/api/districts/:org_code', apiController.getOrgCode);
 app.get('/api/schools', apiController.getSchools);
 app.get('/api/districts', apiController.getDistricts);
+app.get('/api/fields/:field', apiController.getFields);
 // app.get('/api/lastfm', apiController.getLastfm);
 // app.get('/api/nyt', apiController.getNewYorkTimes);
 // app.get('/api/aviary', apiController.getAviary);
