@@ -108,7 +108,7 @@ exports.getFields = function(req, res) {
       }
 
       var projections = {
-        year: 1, org_code: 1, , _id: 0
+        year: 1, org_code: 1, _id: 0
       };
       projections[field] = 1;
 
