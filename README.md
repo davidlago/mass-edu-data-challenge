@@ -114,6 +114,39 @@ Get only staffing age report for 2014 for district `02260000`:
 http://massedu.info/api/districts/02260000?year=2014&subrealm=staffing_age_report
 ````
 
+#### /fields
+This endpoint returns all of the occurrences for a specific field (from the dictionary) across all of the organizations and years. It takes two optonal parameters to further narrow down the search:
+
+* `orgtype`: Can be `school` or `district`, to return occurrences only in schools or districts, respectively. If not present, results can come from either type.
+* `year`: Four digit year
+
+This service returns an array of occurrences in this format (sorted first by year and then by organization code):
+
+```json
+{
+  "FIELD_NAME": "FIELD_VALUE",
+  "org_code":   "ORG_CODE",
+  "year":       "YEAR"
+}
+```
+
+##### Sample calls:
+
+Get all the occurrences for field `ATTR_PCT_ALL` in the dataset:
+```
+http://massedu.info/api/fields/ATTR_PCT_ALL
+```
+
+Get all the occurrences for field `ATTR_PCT_ALL` for 2014 in the dataset:
+```
+http://massedu.info/api/fields/ATTR_PCT_ALL?year=2014
+````
+
+Get all the occurrences for field `ATTR_PCT_ALL` for 2014 in the dataset, only for schools:
+```
+http://massedu.info/api/fields/ATTR_PCT_ALL?year=2014&orgtype=school
+````
+
 
 ### Dictionaries
 
