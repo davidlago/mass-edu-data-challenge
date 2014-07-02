@@ -58,27 +58,31 @@ exports.loadJSON = function (options) {
   var first = true
 
 	// Group merged document by org_code and year
-	var grpOrg = _.groupBy(obj, function(el){
-	  return (get_org_code(el)+":"+get_year(el, fileroot_year))
-	})
-  var blat = 0
-  var intObj = _.map(grpOrg, function(records, org_code_and_year) {
-    var org_code = org_code_and_year.split(":")[0]
-    var year = org_code_and_year.split(":")[1]
-    var dist_code = org_code.substring(0,4)+"0000"
+  var to_insert = [];
+  for(i in obj) {
+    var newRec = obj[i];
+    
+    newRec.org_code = get_org_code(newRec);
+    newRec.org_name = name_dict[newRec.org_code];
+    newRec.dist_code = newRec.org_code.substring(0,4)+"0000"
+    newRec.dist_name = name_dict[newRec.dist_code];
+    newRec.year = get_year(newRec, fileroot_year);
+    newRec.folder = folder;
+    newRec.filename = fileroot;
 
-    var to_insert = [];
-    for(i in records) {
-      var newRec = records[i];
-      newRec.org_code = org_code;
-      newRec.org_name = name_dict[org_code];
-      newRec.dist_code = dist_code;
-      newRec.dist_name = name_dict[dist_code];
-      newRec.year = year
-      newRec.folder = folder;
-      newRec.filename = fileroot;
-      to_insert.push(newRec);
-    }
+    to_insert.push(newRec);
+  }
+
+	// var grpOrg = _.groupBy(obj, function(el){
+	//   return (get_org_code(el)+":"+get_year(el, fileroot_year))
+	// })
+ //  var blat = 0
+ //  var intObj = _.map(grpOrg, function(records, org_code_and_year) {
+ //    var org_code = org_code_and_year.split(":")[0]
+ //    var year = org_code_and_year.split(":")[1]
+ //    var dist_code = org_code.substring(0,4)+"0000"
+
+    
 
 
   //   var to_insert = {
@@ -90,13 +94,19 @@ exports.loadJSON = function (options) {
 		// , realm: folder
   //   }
   //   to_insert[fileroot] = records
-  
-    return to_insert
-  })
+    
+  //   return to_insert
+  // })
   //console.log("obj out size:",intObj.length)
 
 	// Merge with previous state document
-	intObj = _.union(intObj,options.state)
-  return intObj
+	// intObj = _.union(intObj,options.state)
+
+ //  var singleArray = []
+ //  for(i in intObj)
+ //    singleArray.push(intObj[i])
+
+
+  return to_insert
 
 }
