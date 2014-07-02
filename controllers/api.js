@@ -108,8 +108,9 @@ exports.getFields = function(req, res) {
       }
 
       var projections = {
-        year: 1, org_code: 1, ATTR_PCT_ALL: 1, _id: 0
+        year: 1, org_code: 1, , _id: 0
       };
+      projections[field] = 1;
 
       var options = {
         "sort": [['year','asc'], ['org_code','asc']]
