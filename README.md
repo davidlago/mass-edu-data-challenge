@@ -115,6 +115,9 @@ http://massedu.info/api/districts/02260000?year=2014&subrealm=staffing_age_repor
 ````
 
 #### /fields
+
+*Disclaimer: this service is slow. Still some index tweaking needed*
+
 This endpoint returns all of the occurrences for a specific field (from the dictionary) across all of the organizations and years. It takes two optonal parameters to further narrow down the search:
 
 * `orgtype`: Can be `school` or `district`, to return occurrences only in schools or districts, respectively. If not present, results can come from either type.
