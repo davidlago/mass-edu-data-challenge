@@ -27,7 +27,7 @@ function one_file(filename, callback) {
       }
 //      if (false) {
       if (size_of_inserts != 0) {
-        collection.insert(inserts, {w: 1}, function(err, records){
+        collection.insert(inserts[0], {w: 1}, function(err, records){
 		      if (records) {
 		       console.log(err)
            console.log(records.length, "records saved")

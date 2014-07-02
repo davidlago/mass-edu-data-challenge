@@ -66,15 +66,31 @@ exports.loadJSON = function (options) {
     var org_code = org_code_and_year.split(":")[0]
     var year = org_code_and_year.split(":")[1]
     var dist_code = org_code.substring(0,4)+"0000"
-    var to_insert = {
-		  org_code: org_code
-		, org_name: name_dict[org_code]
-		, dist_code: dist_code
-		, dist_name: name_dict[dist_code]
-		, year: year
-		, realm: folder
+
+    var to_insert = [];
+    for(i in records) {
+      var newRec = records[i];
+      newRec.org_code = org_code;
+      newRec.org_name = name_dict[org_code];
+      newRec.dist_code = dist_code;
+      newRec.dist_name = name_dict[dist_code];
+      newRec.year = year
+      newRec.folder = folder;
+      newRec.filename = fileroot;
+      to_insert.push(newRec);
     }
-    to_insert[fileroot] = records
+
+
+  //   var to_insert = {
+		//   org_code: org_code
+		// , org_name: name_dict[org_code]
+		// , dist_code: dist_code
+		// , dist_name: name_dict[dist_code]
+		// , year: year
+		// , realm: folder
+  //   }
+  //   to_insert[fileroot] = records
+  
     return to_insert
   })
   //console.log("obj out size:",intObj.length)
