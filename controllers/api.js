@@ -53,10 +53,10 @@ exports.getOrgCode = function(req, res) {
       query.org_code = req.params.org_code
 
       if(realm) {
-        query.folder = realm
+        query.realm = realm
       }
       if(subrealm) {
-        query.filename = subrealm
+        query.subrealm = subrealm
       }
       if(year) {
         query.year = year

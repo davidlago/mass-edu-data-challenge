@@ -67,8 +67,8 @@ exports.loadJSON = function (options) {
     newRec.dist_code = newRec.org_code.substring(0,4)+"0000"
     newRec.dist_name = name_dict[newRec.dist_code];
     newRec.year = get_year(newRec, fileroot_year);
-    newRec.folder = folder;
-    newRec.filename = fileroot;
+    newRec.realm = folder;
+    newRec.subrealm = fileroot;
 
     to_insert.push(newRec);
   }

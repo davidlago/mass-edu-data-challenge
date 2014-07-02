@@ -6,16 +6,44 @@ Repository for the Mass Edu data challenge: http://bit.ly/1tRePCQ
 As a first step, we are aggregating the data from the different files provided under a common data structure (JSON hosted in a MongoDB database).
 
 ## Data import
-The Node.js program tha parses the data files under the `data` directory is located inside `import`. You can edit the database it connects to and run it locally to populate your own MongoDB instance.
+The Node.js program tha parses the data files under the `data` directory is located inside `import`. While having a running MongoDB instance, execute the following 
+
+```shell
+cd import
+node --max-old-space-size=20480 app.js 
+```
+
+Where the `--max-old-space-size` variable is the memory alloation in megabytes. This process might not complete successfully with the default memory settings. We recommend trying this with the maximum memory your system can afford.
+
+This script creates a `massedu` database, and inside of it a `org_code_flat` collection, with all the entries of all the csv files as documents. The general format of a document in this collection is as follows:
+
+```json
+{
+  "FIELD_1":   "VALUE_1",
+  "FIELD_2":   "VALUE_2",
+  ...
+  "FIELD_N":   "VALUE_N",
+  "org_code":  "8-digit organization code here",
+  "org_name":  "Organization name here",
+  "dist_code": "8-digit district code here",
+  "dist_name": "District name here",
+  "year":      "2003",
+  "realm":    "First category level (equivalent to folder in data dir)",
+  "subrealm":  "Second category level (equivalent to filename in folder)"
+}
+```
+`FIELD_1...FIELD_N` vary depending on the file. See dictionary of terms for what each term means. The last 7 fields are common to all documents, and identify the organization and categories of this entry/document.
+
 
 ## API
-On top of MongoDB, we are developing a RESTful API using Node.js, that we are making public at `http://massedu.info/api`. The different data is now keyed by the organization code, an eight-digit number that represents the district (first four) and school (last four). If the last four are zeroes the information pertains to a district, otherwise it belongs to a particular school.
+On top of MongoDB, we have developed a RESTful API using Node.js, that we are making public at `http://massedu.info/api`. The different data is now keyed by the organization code, an eight-digit number that represents the district (first four) and school (last four). If the last four are zeroes the information pertains to a district, otherwise it belongs to a particular school.
 
 ### Interface
 #### /schools
-This endpoint returns schools and school information. When called without parameters, it returns a list of all available schools in the dataset. When called with an organization ID, it returns all the data about that particular school. If you want to narrow down the data returned about the school, two parameters can be used:
+This endpoint returns schools and school information. When called without parameters, it returns a list of all available schools in the dataset. When called with an organization ID, it returns all the data about that particular school. If you want to narrow down the data returned about the school, three parameters can be used:
 
-* `realm`: Domain of the information. Examples are financial, mcas, attrition...
+* `realm`: First category level (equivalent to folder in data dir). See dictionary.
+* `subrealm`: Second category level (equivalent to filename in folder). See dictionary.
 * `year`: Four digit year
 
 ##### Sample calls:
@@ -25,26 +53,32 @@ Get all the schools in the dataset:
 http://massedu.info/api/schools
 ```
 
-Get all the information about school `00070013`:
+Get all the information about school `00970016`:
 ```
-http://massedu.info/api/schools/00070013
+http://massedu.info/api/schools/00970016
 ````
 
-Get only the 2014 data for school `00070013`:
+Get only the 2014 data for school `00970016`:
 ````
-http://massedu.info/api/school/00070013?year=2014
+http://massedu.info/api/schools/00970016?year=2014
 ````
 
-Get only student information for 2014 for school `00070013`:
+Get only student information for 2014 for school `00970016`:
 ````
-http://massedu.info/api/schools/00070013?year=2014&realm=students
+http://massedu.info/api/schools/00970016?year=2014&realm=students
+````
+
+Get class sizes by gender for school `00970016`:
+````
+http://massedu.info/api/schools/00970016?year=2012&subrealm=class_size_by_gender
 ````
 
 
 #### /districts
-This endpoint returns districts and district information. When called without parameters, it returns a list of all available districts in the dataset. When called with an organization ID, it returns all the data about that particular district. If you want to narrow down the data returned about the district, two parameters can be used:
+This endpoint returns districts and district information. When called without parameters, it returns a list of all available districts in the dataset. When called with an organization ID, it returns all the data about that particular district. If you want to narrow down the data returned about the district, three parameters can be used:
 
-* `realm`: Domain of the information. Examples are financial, mcas, attrition...
+* `realm`: First category level (equivalent to folder in data dir). See dictionary.
+* `subrealm`: Second category level (equivalent to filename in folder). See dictionary.
 * `year`: Four digit year
 
 ##### Sample calls:
@@ -69,21 +103,16 @@ Get only teacher information for 2014 for district `02260000`:
 http://massedu.info/api/districts/02260000?year=2014&realm=educators_teachers
 ````
 
+Get only staffing age report for 2014 for district `02260000`:
+````
+http://massedu.info/api/districts/02260000?year=2014&subrealm=staffing_age_report
+````
+
+
 ### Dictionaries
 
 There are a collection of static JSON files that can be used to assist in building an application around the data:
 
-#### `schools.json`
-List of schools, and the districts they belong to. Available at `http://massedu.info/api/schools.json`. Sample element:
-
-````json
-{
-    "org_code":  "00010405",
-    "org_name":  "Frolio Middle School",
-    "dist_code": "00010000",
-    "dist_name": "Abington"
-}
-```
 
 #### `realms.json`
 List of available realms of data for the schools and/or districts. Available at `http://massedu.info/api/realms.json`. The field `org_type` indicates if it pertains to a `school`, a `district` or `both`. Sample element:
@@ -117,9 +146,6 @@ List of available realms of data for the schools and/or districts. Available at 
 }
 ```
 
-#### `years.json`
-List of available years in the dataset (array of strings). Available at `http://massedu.info/api/years.json`.
-
 #### `dictionary.json`
 List of fields and their descriptions, as extracted from the dataset's dictionary. Available at `http://massedu.info/api/dictionary.json`. Sample element:
 
@@ -133,5 +159,9 @@ List of fields and their descriptions, as extracted from the dataset's dictionar
 }
 ```
 
+#### `years.json`
+List of available years in the dataset (array of strings). Available at `http://massedu.info/api/years.json`.
+
+
 ## Website
-Using the API, we are starting to build a website at http://massedu.info.
+We have put together a website to showcase the use of this API at http://massedu.info.
