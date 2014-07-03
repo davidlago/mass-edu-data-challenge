@@ -21,15 +21,8 @@ function get_year(el, fileroot_year) {
   return year
 }
 
-exports.loadJSON = function (options) {
-
-	var obj = options.json 				// New input file as a JSON
-	var intObj = []						// Intermediate object, built from input JSON
-	var finalObj = []					// Final object, mergin intermediate object and previous state object
-
-	//var filename = options.fileroot		// Input file name (without extension)
-  //console.log(options)
-  var fileroot = options.name.split(".csv")[0]
+exports.fileroot = function (filename) {
+  var fileroot = filename.split(".csv")[0]
   // Grab year
   var fileroot_year = fileroot.replace(/[^0-9]*([12][90][8901][0-9])[^0-9]*/,"$1")
   //console.log(fileroot_year)
@@ -48,7 +41,17 @@ exports.loadJSON = function (options) {
   fileroot = fileroot.replace(/_$/,"")
   
   //console.log("fileroot:",fileroot)
+  return { fileroot: fileroot, fileroot_year: fileroot_year }
+}
 
+exports.loadJSON = function (options) {
+
+	var obj = options.json 				// New input file as a JSON
+	var intObj = []						// Intermediate object, built from input JSON
+	var finalObj = []					// Final object, mergin intermediate object and previous state object
+
+  var fileroots = exports.fileroot(options.name)
+  
 	var folder = options.path.split(/[\/\\]data[\/\\]/)[1]
   //console.log("folder/realm:", folder)
 	
@@ -66,9 +69,9 @@ exports.loadJSON = function (options) {
     newRec.org_name = name_dict[newRec.org_code];
     newRec.dist_code = newRec.org_code.substring(0,4)+"0000"
     newRec.dist_name = name_dict[newRec.dist_code];
-    newRec.year = get_year(newRec, fileroot_year);
+    newRec.year = get_year(newRec, fileroots.fileroot_year);
     newRec.realm = folder;
-    newRec.subrealm = fileroot;
+    newRec.subrealm = fileroots.fileroot;
 
     to_insert.push(newRec);
   }
