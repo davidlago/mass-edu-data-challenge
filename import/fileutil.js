@@ -5,6 +5,7 @@ var _ = require("underscore")
 var path = require("path")
 var csv = require("./csv")
 var field_index = require('./field_index')
+var field_util = require('./field_util')
 
 var walk_options = {
   followLinks: false
@@ -154,30 +155,48 @@ exports.header_parse = function(filename, callback) {
 
 // Read file, assume csv or tsv with some headers
 exports.load_file = function(filename, callback) {
-  console.log(filename)
-  var separator = exports.separator(filename)
-  var field_splitter = csv.parse
-  if (separator == '\t') {
-    field_splitter = exports.tab_splitter
-  } 
-  var lines = 0
-  var got_header = false
-  var header
-  var org_code_index
-  var org_name_index
-  var year_index
-  var jsonObj = []
-  fs.createReadStream(filename)
-    .pipe(split())
-    .on('data', function (line) {
+  exports.load_file_as_array(filename, function(json) {
+    var lines = 0
+    var got_header = false
+    var header
+    var org_code_index
+    var org_name_index
+    var year_index
+    var jsonObj = []
+    var indicies = field_util.find_columns(json)
+    var code_index = []
+    if (indicies.school != -1) { code_index.push(indicies.school) }
+    if (indicies.district != -1) { code_index.push(indicies.district) }
+    if (indicies.district_short != -1) { code_index.push(indicies.district_short) }
+    for (var i = 0; i < json.length; i++) {
       if (!got_header) {
-        header = field_splitter(line)
-        //console.log(header)
+        header = json[i]
         org_code_index = field_index.org_code(header)
         org_name_index = field_index.org_name(header)
         year_index = field_index.year(header)
         if (org_code_index != -1) {
           got_header = true
+          //console.log(header)
+          header[org_code_index] = "SCHOOL" // Normalize
+          if (year_index != -1) {
+            header[year_index] = "YEAR" // Normalize
+          }
+          if (year_index != indicies.year) {
+            console.log("Year index mismatch:", year_index, indicies.year)
+            console.log(json[i])
+            console.log(json[i+1])
+            header[indicies.year] = "YEAR"
+            //process.exit(1)
+          }
+          if (code_index[0] != org_code_index &&
+          //code_index.indexOf(org_code_index) == -1 &&
+            !_.isEqual(indicies, { year: -1, school: -1, district: -1, district_short: -1, state: -1 })) {
+            console.log("org_code mismatch:", org_code_index, code_index, indicies)
+            console.log(json[i])
+            console.log(json[i+1])
+            //process.exit(1)
+          }
+          //console.log(header)
         } else {
           // TODO lookup school name and insert by school name
           if (org_name_index != -1) {
@@ -190,13 +209,37 @@ exports.load_file = function(filename, callback) {
           console.log("data",header)
         }
       } else {
-        var fields = field_splitter(line)
+        var fields = json[i]
+        if (fields[org_code_index] == '') { fields[org_code_index] = fields[code_index[1]] }
+        if (fields[org_code_index] == '') { fields[org_code_index] = fields[code_index[2]] }
+        if (fields[org_code_index] && fields[org_code_index].length == 4) { fields[org_code_index] = fields[org_code_index]+"0000" }
         jsonObj.push(_.object(header,fields))
       }
       lines = lines + 1
+    }
+    callback(jsonObj)
+  })
+}
+
+// Read file, assume csv or tsv with some headers
+exports.load_file_as_array = function(filename, callback) {
+  console.log(filename)
+  var separator = exports.separator(filename)
+  var field_splitter = csv.parse
+  if (separator == '\t') {
+    field_splitter = exports.tab_splitter
+  } 
+  var lines = 0
+  var json = []
+  fs.createReadStream(filename)
+    .pipe(split())
+    .on('data', function (line) {
+      row = field_splitter(line)
+      json.push(row)
+      lines = lines + 1
     })
     .on('end', function() {
-      callback(jsonObj)
+      callback(json)
     })
   // end fs.createReadStream
 }
